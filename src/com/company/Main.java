@@ -13,7 +13,7 @@ public class Main {
         frame.setSize(420,420); // sets x and y dimension of frame
         frame.setVisible(true); // make frame visible
 
-        ImageIcon icon = new ImageIcon("com/company/pong_icon.png");
-        frame.setIconImage(icon.getImage());
+        ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
+        frame.setIconImage(icon.getImage()); // change icon of frame
     }
 }
