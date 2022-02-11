@@ -1,12 +1,11 @@
 package com.company;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main {
 
-    public static void main(String[] args) {
-
+    static void menu() {
         JFrame frame = new JFrame(); // creates a frame
         frame.setTitle("pong"); // title of frame
         frame.setResizable(false);
@@ -15,5 +14,9 @@ public class Main {
 
         ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
         frame.setIconImage(icon.getImage()); // change icon of frame to pong_icon.png
+    }
+
+    public static void main(String[] args) {
+        menu();
     }
 }
