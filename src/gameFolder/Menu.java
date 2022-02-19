@@ -5,39 +5,47 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.util.Objects;
 
+import logic.DifficultyStuff;
 import logic.GamePanel;
 
-public class menu extends JFrame implements ActionListener {
+
+
+public class Menu implements ActionListener {
+
+    DifficultyStuff DS;
+
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
     // Player VS Computer
-    buttonTemplate pvcButton = new buttonTemplate(282, 75, 300, 50, "Player VS Computer");
+    ButtonTemplate pvcButton = new ButtonTemplate(282, 75, 300, 50, "Player VS Computer");
     // Player VS Player
-    buttonTemplate pvpButton = new buttonTemplate(282, 175, 300, 50, "Player VS Player");
+    ButtonTemplate pvpButton = new ButtonTemplate(282, 175, 300, 50, "Player VS Player");
     // Skins
-    buttonTemplate skinsButton = new buttonTemplate(282, 275, 300, 50, "Skins");
+    ButtonTemplate skinsButton = new ButtonTemplate(282, 275, 300, 50, "Skins");
     // Leaderboard
-    buttonTemplate leaderBoardButton = new buttonTemplate(282, 375, 300, 50, "Leaderboard");
+    ButtonTemplate leaderBoardButton = new ButtonTemplate(282, 375, 300, 50, "Leaderboard");
     // Exit
-    buttonTemplate exitButton = new buttonTemplate(282, 475, 300, 50, "Exit");
+    ButtonTemplate exitButton = new ButtonTemplate(282, 475, 300, 50, "Exit");
 
     // PVC Normal
-    buttonTemplate pvcNormalButton = new buttonTemplate(282, 75, 300, 50, "P VS C - Normal");
+    ButtonTemplate pvcNormalButton = new ButtonTemplate(282, 75, 300, 50, "P VS C - Normal");
     // PVC Hard
-    buttonTemplate pvcHardButton = new buttonTemplate(282, 175, 300, 50, "P VS C - Hard");
+    ButtonTemplate pvcHardButton = new ButtonTemplate(282, 175, 300, 50, "P VS C - Hard");
 
     // PVP Normal
-    buttonTemplate pvpNormalButton = new buttonTemplate(282, 75, 300, 50, "P VS P - Normal");
+    ButtonTemplate pvpNormalButton = new ButtonTemplate(282, 75, 300, 50, "P VS P - Normal");
     // PVP Hard
-    buttonTemplate pvpHardButton = new buttonTemplate(282, 175, 300, 50, "P VS P - Hard");
+    ButtonTemplate pvpHardButton = new ButtonTemplate(282, 175, 300, 50, "P VS P - Hard");
 
     // PVC or PVP Back (button)
-    buttonTemplate backButton = new buttonTemplate(282, 275, 300, 50, "Back");
+    ButtonTemplate backButton = new ButtonTemplate(282, 275, 300, 50, "Back");
 
     JFrame menuFrame;
 
-    private void run(){
+    private void run(int dif){
+        DifficultyStuff.globalDifficulty = dif;
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -66,7 +74,7 @@ public class menu extends JFrame implements ActionListener {
 
     }
 
-    menu() {
+    Menu() {
         // allows button to do something when pressed
         pvcButton.addActionListener(this);
         pvpButton.addActionListener(this);
@@ -106,7 +114,7 @@ public class menu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==pvcButton){ // when player vs computer pressed
+        if(e.getSource()==pvcButton){ // when player vs computer is pressed
             removeOldButtons();
             menuFrame.add(pvcNormalButton);
             menuFrame.add(pvcHardButton);
@@ -114,7 +122,7 @@ public class menu extends JFrame implements ActionListener {
 
             menuFrame.repaint();
         }
-        if(e.getSource()==pvpButton) { // when player vs player pressed
+        if(e.getSource()==pvpButton) { // when player vs player is pressed
             removeOldButtons();
             menuFrame.add(pvpNormalButton);
             menuFrame.add(pvpHardButton);
@@ -122,24 +130,25 @@ public class menu extends JFrame implements ActionListener {
 
             menuFrame.repaint();
         }
-        if(e.getSource()==skinsButton){ // when skins pressed
+        if(e.getSource()==skinsButton){ // when skins is pressed
             // put code here
         }
-        if(e.getSource()==leaderBoardButton){ // when leaderboard pressed
+        if(e.getSource()==leaderBoardButton){ // when leaderboard is pressed
             // put code here
         }
-        if(e.getSource()==pvcNormalButton){ // when pvc normal pressed
+        if(e.getSource()==pvcNormalButton){ // when pvc normal is pressed
             // put code here
         }
-        if(e.getSource()==pvcHardButton){ // when pvc hard pressed
+        if(e.getSource()==pvcHardButton){ // when pvc hard is pressed
             // put code here
         }
-        if(e.getSource()==pvpNormalButton){ // when pvp normal pressed
+        if(e.getSource()==pvpNormalButton){ // when pvp normal is pressed
             menuFrame.dispose();
-            run();
+            run(1);
         }
-        if(e.getSource()==pvpHardButton){ // when pvp hard pressed
-            // put code here
+        if(e.getSource()==pvpHardButton){ // when pvp hard is pressed
+            menuFrame.dispose();
+            run(2);
         }
         if(e.getSource()==backButton) { // when back button is pressed
             menuFrame.remove(pvpNormalButton);

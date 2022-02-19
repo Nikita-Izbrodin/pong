@@ -4,9 +4,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.Font;
 
-public class buttonTemplate extends JButton {
+public class ButtonTemplate extends JButton {
 
-    public buttonTemplate(int x, int  y, int width, int height, String text) {
+    public ButtonTemplate(int x, int  y, int width, int height, String text) {
         this.setBounds(x, y, width, height);
         this.setText(text);
         this.setFont(new Font("Comic Sans", Font.BOLD, 20));

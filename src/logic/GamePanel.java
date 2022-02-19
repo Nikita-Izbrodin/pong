@@ -11,14 +11,16 @@ import gameFolder.UI;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int originalTileSize = 16;
-    final int scale = 3;
+    static final int originalTileSize = 16;
+    static final int scale = 3;
+    DifficultyStuff ds;
 
-    public final int tileSize = originalTileSize * scale;
-    public final int maxScreenCol = 18;
-    public final int maxScreenRow = 14;
-    public final int screenWidth = tileSize * maxScreenCol;
-    public final int screenHeight = tileSize * maxScreenRow;
+    public static final int tileSize = originalTileSize * scale;
+
+    public static int maxScreenCol = 18;
+    public static int maxScreenRow = 14;
+    public static int screenWidth = tileSize * maxScreenCol;
+    public static int screenHeight = tileSize * maxScreenRow;
 
     //fps
     int FPS = 60;
@@ -32,11 +34,17 @@ public class GamePanel extends JPanel implements Runnable {
     public Thread gameThread;
     public UI ui = new UI(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public Player player = new Player(this,keyH);
-    public Player2 player2 = new Player2(this,keyG);
+    public Player player = new Player(this, keyH);
+    public Player2 player2 = new Player2(this, keyG);
     Ball ball = new Ball(this);
 
     public GamePanel() {
+        if (ds.globalDifficulty == 2) {
+            GamePanel.maxScreenCol = 22;
+            GamePanel.maxScreenRow = 18;
+            screenWidth = tileSize * maxScreenCol;
+            screenHeight = tileSize * maxScreenRow;
+        }
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -45,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyG);
         this.setFocusable(true);
     }
+
 
     public void setupGame(){
     //    playMusic(0);

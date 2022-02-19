@@ -4,11 +4,13 @@ package gameFolder;
 
 //import javax.swing.*;
 
+import logic.DifficultyStuff;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        new menu();
+        new Menu();
 
         /*
         JFrame window = new JFrame();
