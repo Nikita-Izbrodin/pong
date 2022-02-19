@@ -47,7 +47,7 @@ public class CollisionChecker {
                 }
                 break;
             case "left":
-                entityLeftCol = (entityLeftWorldX - entity.speedX) / gp.tileSize;
+                entityLeftCol = (entityLeftWorldX - (int)entity.speedX) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
@@ -57,7 +57,7 @@ public class CollisionChecker {
                 }
                 break;
             case "right":
-                entityRightCol = (entityRightWorldX + entity.speedX) / gp.tileSize;
+                entityRightCol = (entityRightWorldX + (int)entity.speedX) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
@@ -100,11 +100,6 @@ public class CollisionChecker {
         if(entity.solidArea.intersects(gp.player2.solidArea)){
             index = 2;
         }
-//        entity.solidArea.y += 2*entity.speedY;
-//        entity.solidArea.x += 2*entity.speedX;
-//        if (entity.solidArea.intersects(gp.player.solidArea)) {
-//            index = 2;
-//        }
 
         gp.player.solidArea.x = defaultPlayerX;
         gp.player.solidArea.y = defaultPlayerY;
