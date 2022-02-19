@@ -5,10 +5,18 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.util.Objects;
 
 import logic.GamePanel;
 
-public class Menu extends JFrame implements ActionListener {
+
+
+public class Menu implements ActionListener {
+
+    public static int globalDifficulty;
+
+    public static int playerOrComp;
+
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
     // Player VS Computer
@@ -36,18 +44,20 @@ public class Menu extends JFrame implements ActionListener {
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
 
     // initialising skin select buttons
-    skinSelectTemplate white = new skinSelectTemplate(257,75);
-    skinSelectTemplate cyan = new skinSelectTemplate(357,75);
-    skinSelectTemplate green = new skinSelectTemplate(457,75);
-    skinSelectTemplate pink = new skinSelectTemplate(557,75);
-    skinSelectTemplate yellow = new skinSelectTemplate(257,175);
-    skinSelectTemplate magenta = new skinSelectTemplate(357,175);
-    skinSelectTemplate red = new skinSelectTemplate(457,175);
-    skinSelectTemplate orange = new skinSelectTemplate(557,175);
+    skinSelectTemplate white = new skinSelectTemplate(257, 75);
+    skinSelectTemplate cyan = new skinSelectTemplate(357, 75);
+    skinSelectTemplate green = new skinSelectTemplate(457, 75);
+    skinSelectTemplate pink = new skinSelectTemplate(557, 75);
+    skinSelectTemplate yellow = new skinSelectTemplate(257, 175);
+    skinSelectTemplate magenta = new skinSelectTemplate(357, 175);
+    skinSelectTemplate red = new skinSelectTemplate(457, 175);
+    skinSelectTemplate orange = new skinSelectTemplate(557, 175);
 
     JFrame menuFrame;
 
-    private void run(){
+    private void run(int dif, int vs) {
+        globalDifficulty = dif;
+        playerOrComp = vs;
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -67,7 +77,7 @@ public class Menu extends JFrame implements ActionListener {
         gamePanel.startGameThread();
     }
 
-    private void removeMainButtons(){
+    private void removeMainButtons() {
         menuFrame.remove(pvcButton);
         menuFrame.remove(pvpButton);
         menuFrame.remove(skinsButton);
@@ -76,7 +86,7 @@ public class Menu extends JFrame implements ActionListener {
 
     }
 
-    private void addMainButtons(){
+    private void addMainButtons() {
         menuFrame.add(pvcButton);
         menuFrame.add(pvpButton);
         menuFrame.add(skinsButton);
@@ -133,7 +143,7 @@ public class Menu extends JFrame implements ActionListener {
         //
         // main menu
         //
-        if(e.getSource()==pvcButton){ // when player vs computer pressed
+        if (e.getSource() == pvcButton) { // when player vs computer pressed
             removeMainButtons();
             menuFrame.add(pvcNormalButton);
             menuFrame.add(pvcHardButton);
@@ -141,7 +151,7 @@ public class Menu extends JFrame implements ActionListener {
 
             menuFrame.repaint();
         }
-        if(e.getSource()==pvpButton) { // when player vs player pressed
+        if (e.getSource() == pvpButton) { // when player vs player pressed
             removeMainButtons();
             menuFrame.add(pvpNormalButton);
             menuFrame.add(pvpHardButton);
@@ -149,7 +159,7 @@ public class Menu extends JFrame implements ActionListener {
 
             menuFrame.repaint();
         }
-        if(e.getSource()==skinsButton){ // when skins pressed
+        if (e.getSource() == skinsButton) { // when skins pressed
             removeMainButtons();
             menuFrame.add(white);
             menuFrame.add(cyan);
@@ -164,73 +174,87 @@ public class Menu extends JFrame implements ActionListener {
 
             menuFrame.repaint();
         }
-        if(e.getSource()==leaderBoardButton){ // when leaderboard pressed
+        if (e.getSource() == leaderBoardButton) { // when leaderboard pressed
             // put code here
         }
-        //
-        // pvp OR pvc
-        //
-        if(e.getSource()==pvcNormalButton){ // when pvc normal pressed
-            // put code here
-        }
-        if(e.getSource()==pvcHardButton){ // when pvc hard pressed
-            // put code here
-        }
-        if(e.getSource()==pvpNormalButton){ // when pvp normal pressed
+        if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();
-            run();
-        }
-        if(e.getSource()==pvpHardButton){ // when pvp hard pressed
-            // put code here
-        }
-        if(e.getSource()==backButton) { // when back button is pressed
-            menuFrame.remove(pvpNormalButton);
-            menuFrame.remove(pvpHardButton);
+            run(1, 2);
+            //
+            // pvp OR pvc
+            //
+            if (e.getSource() == pvcNormalButton) { // when pvc normal pressed
+                // put code here
+            }
+            if (e.getSource() == pvcHardButton) { // when pvc hard is pressed
+                menuFrame.dispose();
+                run(2, 2);
+                if (e.getSource() == pvcHardButton) { // when pvc hard pressed
+                    // put code here
+                }
+                if (e.getSource() == pvpNormalButton) { // when pvp normal is pressed
+                    menuFrame.dispose();
+                    run(1, 1);
+                }
+                if (e.getSource() == pvpHardButton) { // when pvp hard is pressed
+                    if (e.getSource() == pvpNormalButton) { // when pvp normal pressed
+                        menuFrame.dispose();
+                        run(2, 1);
+                    }
+                    if (e.getSource() == pvpHardButton) { // when pvp hard pressed
+                        // put code here
+                    }
+                    if (e.getSource() == backButton) { // when back button is pressed
+                        menuFrame.remove(pvpNormalButton);
+                        menuFrame.remove(pvpHardButton);
 
-            menuFrame.remove(pvcNormalButton);
-            menuFrame.remove(pvcHardButton);
+                        menuFrame.remove(pvcNormalButton);
+                        menuFrame.remove(pvcHardButton);
 
-            menuFrame.remove(white);
-            menuFrame.remove(cyan);
-            menuFrame.remove(green);
-            menuFrame.remove(pink);
-            menuFrame.remove(yellow);
-            menuFrame.remove(magenta);
-            menuFrame.remove(red);
-            menuFrame.remove(orange);
+                        menuFrame.remove(white);
+                        menuFrame.remove(cyan);
+                        menuFrame.remove(green);
+                        menuFrame.remove(pink);
+                        menuFrame.remove(yellow);
+                        menuFrame.remove(magenta);
+                        menuFrame.remove(red);
+                        menuFrame.remove(orange);
 
-            menuFrame.remove(backButton);
+                        menuFrame.remove(backButton);
 
-            addMainButtons();
+                        addMainButtons();
 
-            menuFrame.repaint();
-        }
-        //
-        // skins
-        //
-        if(e.getSource()==white){ // when white pressed
-            // put code here
-        }
-        if(e.getSource()==cyan){ // when cyan pressed
-            // put code here
-        }
-        if(e.getSource()==green){ // when green pressed
-            // put code here
-        }
-        if(e.getSource()==pink){ // when pink pressed
-            // put code here
-        }
-        if(e.getSource()==yellow){ // when yellow pressed
-            // put code here
-        }
-        if(e.getSource()==magenta){ // when magenta pressed
-            // put code here
-        }
-        if(e.getSource()==red){ // when red pressed
-            // put code here
-        }
-        if(e.getSource()==orange){ // when orange pressed
-            // put code here
+                        menuFrame.repaint();
+                    }
+                    //
+                    // skins
+                    //
+                    if (e.getSource() == white) { // when white pressed
+                        // put code here
+                    }
+                    if (e.getSource() == cyan) { // when cyan pressed
+                        // put code here
+                    }
+                    if (e.getSource() == green) { // when green pressed
+                        // put code here
+                    }
+                    if (e.getSource() == pink) { // when pink pressed
+                        // put code here
+                    }
+                    if (e.getSource() == yellow) { // when yellow pressed
+                        // put code here
+                    }
+                    if (e.getSource() == magenta) { // when magenta pressed
+                        // put code here
+                    }
+                    if (e.getSource() == red) { // when red pressed
+                        // put code here
+                    }
+                    if (e.getSource() == orange) { // when orange pressed
+                        // put code here
+                    }
+                }
+            }
         }
     }
 }

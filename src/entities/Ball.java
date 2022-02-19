@@ -1,6 +1,6 @@
 package entities;
 
-import logic.DifficultyStuff;
+import gameFolder.Menu;
 import logic.GamePanel;
 
 import java.awt.*;
@@ -12,9 +12,9 @@ import javax.imageio.*;
 
 public class Ball extends Entity{
     GamePanel gp;
-    DifficultyStuff DS;
 
     public double acceleration;
+    public int variation;
 
     public Ball(GamePanel gp ){
         this.gp=gp;
@@ -50,11 +50,14 @@ public class Ball extends Entity{
         //CHECK PADDLE COLLISION
         int paddleCollision = gp.cChecker.checkObject(this);
 
-        if (DS.globalDifficulty == 1) {
+        if (Menu.globalDifficulty == 1) {
             acceleration = 0.3;
+            variation=4;
+
         }
-        if (DS.globalDifficulty == 2) {
+        if (Menu.globalDifficulty == 2) {
             acceleration = 0.6;
+            variation=7;
         }
 
 
@@ -76,9 +79,9 @@ public class Ball extends Entity{
             speedX += acceleration;
             speedX = -speedX;
             if(rand.nextInt(2)==1){
-                speedY= -(rand.nextInt(3)+2);
+                speedY= -(rand.nextInt(variation)+2);
             }else{
-                speedY= (rand.nextInt(3)+2);
+                speedY= (rand.nextInt(variation)+2);
             }
             System.out.println(speedX);
         }

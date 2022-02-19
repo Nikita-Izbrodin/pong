@@ -4,8 +4,10 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 import entities.Ball;
+import entities.Computer;
 import entities.Player;
 import entities.Player2;
+import gameFolder.Menu;
 import gameFolder.Sound;
 import gameFolder.UI;
 import tile.TileManager;
@@ -13,7 +15,6 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
     static final int originalTileSize = 16;
     static final int scale = 3;
-    DifficultyStuff ds;
 
     public static final int tileSize = originalTileSize * scale;
 
@@ -36,10 +37,13 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
     public Player2 player2 = new Player2(this, keyG);
-    Ball ball = new Ball(this);
+    public Computer compAI = new Computer(this);
+    public Ball ball = new Ball(this);
 
     public GamePanel() {
-        if (ds.globalDifficulty == 2) {
+
+
+        if (Menu.globalDifficulty == 2) {
             GamePanel.maxScreenCol = 22;
             GamePanel.maxScreenRow = 18;
             screenWidth = tileSize * maxScreenCol;
@@ -105,7 +109,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         player.update();
-        player2.update();
+        if(Menu.playerOrComp == 1){
+            player2.update();
+        }else if(Menu.playerOrComp==2){
+            compAI.update();
+        }
+
         ball.update();
     }
 
@@ -119,7 +128,13 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g2);
 
         player.draw(g2);
-        player2.draw(g2);
+        if(Menu.playerOrComp == 1){
+            player2.draw(g2);
+        }else if(Menu.playerOrComp==2){
+            compAI.draw(g2);
+        }
+
+
 
         ball.draw(g2);
 
