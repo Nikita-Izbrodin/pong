@@ -12,28 +12,38 @@ public class menu extends JFrame implements ActionListener {
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
     // Player VS Computer
-    buttonTemplate pvcButton = new buttonTemplate(282, 75, 300, 50, "Player VS Computer");
+    buttonTemplate pvcButton = new buttonTemplate(75, "Player VS Computer");
     // Player VS Player
-    buttonTemplate pvpButton = new buttonTemplate(282, 175, 300, 50, "Player VS Player");
+    buttonTemplate pvpButton = new buttonTemplate(175, "Player VS Player");
     // Skins
-    buttonTemplate skinsButton = new buttonTemplate(282, 275, 300, 50, "Skins");
+    buttonTemplate skinsButton = new buttonTemplate(275, "Skins");
     // Leaderboard
-    buttonTemplate leaderBoardButton = new buttonTemplate(282, 375, 300, 50, "Leaderboard");
+    buttonTemplate leaderBoardButton = new buttonTemplate(375, "Leaderboard");
     // Exit
-    buttonTemplate exitButton = new buttonTemplate(282, 475, 300, 50, "Exit");
+    buttonTemplate exitButton = new buttonTemplate(475, "Exit");
 
     // PVC Normal
-    buttonTemplate pvcNormalButton = new buttonTemplate(282, 75, 300, 50, "P VS C - Normal");
+    buttonTemplate pvcNormalButton = new buttonTemplate(75, "P VS C - Normal");
     // PVC Hard
-    buttonTemplate pvcHardButton = new buttonTemplate(282, 175, 300, 50, "P VS C - Hard");
+    buttonTemplate pvcHardButton = new buttonTemplate(175, "P VS C - Hard");
 
     // PVP Normal
-    buttonTemplate pvpNormalButton = new buttonTemplate(282, 75, 300, 50, "P VS P - Normal");
+    buttonTemplate pvpNormalButton = new buttonTemplate(75, "P VS P - Normal");
     // PVP Hard
-    buttonTemplate pvpHardButton = new buttonTemplate(282, 175, 300, 50, "P VS P - Hard");
+    buttonTemplate pvpHardButton = new buttonTemplate(175, "P VS P - Hard");
 
     // PVC or PVP Back (button)
-    buttonTemplate backButton = new buttonTemplate(282, 275, 300, 50, "Back");
+    buttonTemplate backButton = new buttonTemplate(275, "Back");
+
+    // initialising skin select buttons
+    skinSelectTemplate white = new skinSelectTemplate(257,75);
+    skinSelectTemplate cyan = new skinSelectTemplate(357,75);
+    skinSelectTemplate green = new skinSelectTemplate(457,75);
+    skinSelectTemplate pink = new skinSelectTemplate(557,75);
+    skinSelectTemplate yellow = new skinSelectTemplate(257,175);
+    skinSelectTemplate magenta = new skinSelectTemplate(357,175);
+    skinSelectTemplate red = new skinSelectTemplate(457,175);
+    skinSelectTemplate orange = new skinSelectTemplate(557,175);
 
     JFrame menuFrame;
 
@@ -57,7 +67,7 @@ public class menu extends JFrame implements ActionListener {
         gamePanel.startGameThread();
     }
 
-    private void removeOldButtons(){
+    private void removeMainButtons(){
         menuFrame.remove(pvcButton);
         menuFrame.remove(pvpButton);
         menuFrame.remove(skinsButton);
@@ -66,7 +76,15 @@ public class menu extends JFrame implements ActionListener {
 
     }
 
-    menu() {
+    private void addMainButtons(){
+        menuFrame.add(pvcButton);
+        menuFrame.add(pvpButton);
+        menuFrame.add(skinsButton);
+        menuFrame.add(leaderBoardButton);
+        menuFrame.add(exitButton);
+    }
+
+    public menu() {
         // allows button to do something when pressed
         pvcButton.addActionListener(this);
         pvpButton.addActionListener(this);
@@ -82,6 +100,16 @@ public class menu extends JFrame implements ActionListener {
 
         backButton.addActionListener(this);
 
+        // setting colours for buttons in skins
+        white.setBackground(Color.WHITE);
+        cyan.setBackground(Color.CYAN);
+        green.setBackground(Color.GREEN);
+        pink.setBackground(Color.PINK);
+        yellow.setBackground(Color.YELLOW);
+        magenta.setBackground(Color.MAGENTA);
+        red.setBackground(Color.RED);
+        orange.setBackground(Color.ORANGE);
+
         // creating the menu frame
         ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
         menuFrame = new JFrame();
@@ -95,19 +123,18 @@ public class menu extends JFrame implements ActionListener {
         menuFrame.setIconImage(icon.getImage()); // change icon of frame to pong_icon.png
 
         // adding the buttons to the menu frame
-        menuFrame.add(pvcButton);
-        menuFrame.add(pvpButton);
-        menuFrame.add(skinsButton);
-        menuFrame.add(leaderBoardButton);
-        menuFrame.add(exitButton);
+        addMainButtons();
 
         menuFrame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //
+        // main menu
+        //
         if(e.getSource()==pvcButton){ // when player vs computer pressed
-            removeOldButtons();
+            removeMainButtons();
             menuFrame.add(pvcNormalButton);
             menuFrame.add(pvcHardButton);
             menuFrame.add(backButton);
@@ -115,7 +142,7 @@ public class menu extends JFrame implements ActionListener {
             menuFrame.repaint();
         }
         if(e.getSource()==pvpButton) { // when player vs player pressed
-            removeOldButtons();
+            removeMainButtons();
             menuFrame.add(pvpNormalButton);
             menuFrame.add(pvpHardButton);
             menuFrame.add(backButton);
@@ -123,11 +150,26 @@ public class menu extends JFrame implements ActionListener {
             menuFrame.repaint();
         }
         if(e.getSource()==skinsButton){ // when skins pressed
-            // put code here
+            removeMainButtons();
+            menuFrame.add(white);
+            menuFrame.add(cyan);
+            menuFrame.add(green);
+            menuFrame.add(pink);
+            menuFrame.add(yellow);
+            menuFrame.add(magenta);
+            menuFrame.add(red);
+            menuFrame.add(orange);
+
+            menuFrame.add(backButton);
+
+            menuFrame.repaint();
         }
         if(e.getSource()==leaderBoardButton){ // when leaderboard pressed
             // put code here
         }
+        //
+        // pvp OR pvc
+        //
         if(e.getSource()==pvcNormalButton){ // when pvc normal pressed
             // put code here
         }
@@ -148,15 +190,47 @@ public class menu extends JFrame implements ActionListener {
             menuFrame.remove(pvcNormalButton);
             menuFrame.remove(pvcHardButton);
 
+            menuFrame.remove(white);
+            menuFrame.remove(cyan);
+            menuFrame.remove(green);
+            menuFrame.remove(pink);
+            menuFrame.remove(yellow);
+            menuFrame.remove(magenta);
+            menuFrame.remove(red);
+            menuFrame.remove(orange);
+
             menuFrame.remove(backButton);
 
-            menuFrame.add(pvcButton);
-            menuFrame.add(pvpButton);
-            menuFrame.add(skinsButton);
-            menuFrame.add(leaderBoardButton);
-            menuFrame.add(exitButton);
+            addMainButtons();
 
             menuFrame.repaint();
+        }
+        //
+        // skins
+        //
+        if(e.getSource()==white){ // when white pressed
+            // put code here
+        }
+        if(e.getSource()==cyan){ // when cyan pressed
+            // put code here
+        }
+        if(e.getSource()==green){ // when green pressed
+            // put code here
+        }
+        if(e.getSource()==pink){ // when pink pressed
+            // put code here
+        }
+        if(e.getSource()==yellow){ // when yellow pressed
+            // put code here
+        }
+        if(e.getSource()==magenta){ // when magenta pressed
+            // put code here
+        }
+        if(e.getSource()==red){ // when red pressed
+            // put code here
+        }
+        if(e.getSource()==orange){ // when orange pressed
+            // put code here
         }
     }
 }

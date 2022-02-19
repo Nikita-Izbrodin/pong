@@ -6,8 +6,8 @@ import java.awt.Font;
 
 public class buttonTemplate extends JButton {
 
-    public buttonTemplate(int x, int  y, int width, int height, String text) {
-        this.setBounds(x, y, width, height);
+    public buttonTemplate(int  y, String text) {
+        this.setBounds(282, y, 300, 50);
         this.setText(text);
         this.setFont(new Font("Comic Sans", Font.BOLD, 20));
         this.setFocusable(false); // removes focus box around text
