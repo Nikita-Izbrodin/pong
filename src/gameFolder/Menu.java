@@ -41,14 +41,14 @@ public class Menu implements ActionListener {
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
 
     // initialising skin select buttons
-    skinSelectTemplate white = new skinSelectTemplate(257, 75);
-    skinSelectTemplate cyan = new skinSelectTemplate(357, 75);
-    skinSelectTemplate green = new skinSelectTemplate(457, 75);
-    skinSelectTemplate pink = new skinSelectTemplate(557, 75);
-    skinSelectTemplate yellow = new skinSelectTemplate(257, 175);
-    skinSelectTemplate magenta = new skinSelectTemplate(357, 175);
-    skinSelectTemplate red = new skinSelectTemplate(457, 175);
-    skinSelectTemplate orange = new skinSelectTemplate(557, 175);
+    SkinSelectTemplate white = new SkinSelectTemplate(257, 75);
+    SkinSelectTemplate cyan = new SkinSelectTemplate(357, 75);
+    SkinSelectTemplate green = new SkinSelectTemplate(457, 75);
+    SkinSelectTemplate pink = new SkinSelectTemplate(557, 75);
+    SkinSelectTemplate yellow = new SkinSelectTemplate(257, 175);
+    SkinSelectTemplate magenta = new SkinSelectTemplate(357, 175);
+    SkinSelectTemplate red = new SkinSelectTemplate(457, 175);
+    SkinSelectTemplate orange = new SkinSelectTemplate(557, 175);
 
     JFrame menuFrame;
 
