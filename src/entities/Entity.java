@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 public class Entity {
 
     public int x, y;
-    public int speedX ,speedY;
+    public int speedY;
+    public double speedX;
 
 
     public BufferedImage entityImage;

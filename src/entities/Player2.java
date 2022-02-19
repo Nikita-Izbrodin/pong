@@ -26,7 +26,7 @@ public class Player2 extends Entity{
     public void setDefaultValues(){
         x = gp.tileSize*16;
         y = 100;
-        speedY=6;
+        speedY=8;
         speedX = 0;
         direction = "down";
         score = 0;
