@@ -27,9 +27,9 @@ public class Ball extends Entity{
         y = gp.screenHeight/2 - gp.tileSize/2;
         speedY= 0;
         if(rand.nextInt(2)==1){
-            speedX=  -5;
+            speedX=  -7;
         }else{
-            speedX= 5;
+            speedX= 7;
         }
     }
 
@@ -54,14 +54,14 @@ public class Ball extends Entity{
 
         if (paddleCollision == 1){
             speedX = -speedX;
-            speedX += 0.4;
+            speedX += 0.5;
             if(rand.nextInt(2)==1){
                 speedY= -(rand.nextInt(3)+3);
             }else{
                 speedY= (rand.nextInt(3)+3);
             }
         }else if (paddleCollision == 2){
-            speedX += 0.4;
+            speedX += 0.5;
             speedX = -speedX;
             if(rand.nextInt(2)==1){
                 speedY= -(rand.nextInt(3)+2);

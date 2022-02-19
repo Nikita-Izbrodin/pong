@@ -57,13 +57,13 @@ public class menu extends JFrame implements ActionListener {
         gamePanel.startGameThread();
     }
 
-    public void deleteButtons(){
+    private void removeOldButtons(){
         menuFrame.remove(pvcButton);
         menuFrame.remove(pvpButton);
         menuFrame.remove(skinsButton);
         menuFrame.remove(leaderBoardButton);
         menuFrame.remove(exitButton);
-        menuFrame.add(backButton);
+
     }
 
     menu() {
@@ -107,26 +107,15 @@ public class menu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==pvcButton){ // when player vs computer pressed
-            //menuFrame.remove(pvcButton);
-            //menuFrame.remove(pvpButton);
-            //menuFrame.remove(skinsButton);
-            //menuFrame.remove(leaderBoardButton);
-            //menuFrame.remove(exitButton);
-            deleteButtons();
-
+            removeOldButtons();
             menuFrame.add(pvcNormalButton);
             menuFrame.add(pvcHardButton);
-            //menuFrame.add(backButton);
+            menuFrame.add(backButton);
 
             menuFrame.repaint();
         }
         if(e.getSource()==pvpButton) { // when player vs player pressed
-            menuFrame.remove(pvcButton);
-            menuFrame.remove(pvpButton);
-            menuFrame.remove(skinsButton);
-            menuFrame.remove(leaderBoardButton);
-            menuFrame.remove(exitButton);
-
+            removeOldButtons();
             menuFrame.add(pvpNormalButton);
             menuFrame.add(pvpHardButton);
             menuFrame.add(backButton);
