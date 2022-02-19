@@ -79,6 +79,8 @@ public class CollisionChecker {
 
         int defaultPlayer2X = gp.player2.solidArea.x;
         int defaultPlayer2Y = gp.player2.solidArea.y;
+        int defaultCompAIX = gp.compAI.solidArea.x;
+        int defaultCompAIY = gp.compAI.solidArea.y;
 
         int defaultBallX = entity.solidArea.x;
         int defaultBallY = entity.solidArea.y;
@@ -92,12 +94,15 @@ public class CollisionChecker {
         gp.player2.solidArea.x = gp.player2.x + gp.player2.solidArea.x;
         gp.player2.solidArea.y = gp.player2.y + gp.player2.solidArea.y;
 
+        gp.compAI.solidArea.x = gp.compAI.x + gp.compAI.solidArea.x;
+        gp.compAI.solidArea.y = gp.compAI.y + gp.compAI.solidArea.y;
+
         entity.solidArea.y += entity.speedY;
         entity.solidArea.x += entity.speedX;
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             index = 1;
         }
-        if(entity.solidArea.intersects(gp.player2.solidArea)){
+        if(entity.solidArea.intersects(gp.player2.solidArea) || entity.solidArea.intersects(gp.compAI.solidArea)){
             index = 2;
         }
 
@@ -106,6 +111,9 @@ public class CollisionChecker {
 
         gp.player2.solidArea.x = defaultPlayer2X;
         gp.player2.solidArea.y = defaultPlayer2Y;
+
+        gp.compAI.solidArea.x = defaultCompAIX;
+        gp.compAI.solidArea.y = defaultCompAIY;
 
         entity.solidArea.x = defaultBallX;
         entity.solidArea.y = defaultBallY;

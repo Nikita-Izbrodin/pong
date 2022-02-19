@@ -7,14 +7,15 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import java.util.Objects;
 
-import logic.DifficultyStuff;
 import logic.GamePanel;
 
 
 
 public class Menu implements ActionListener {
 
-    DifficultyStuff DS;
+    public static int globalDifficulty;
+
+    public static int playerOrComp;
 
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
@@ -44,8 +45,9 @@ public class Menu implements ActionListener {
 
     JFrame menuFrame;
 
-    private void run(int dif){
-        DifficultyStuff.globalDifficulty = dif;
+    private void run(int dif, int vs){
+        globalDifficulty = dif;
+        playerOrComp = vs;
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -137,18 +139,20 @@ public class Menu implements ActionListener {
             // put code here
         }
         if(e.getSource()==pvcNormalButton){ // when pvc normal is pressed
-            // put code here
+            menuFrame.dispose();
+            run(1,2);
         }
         if(e.getSource()==pvcHardButton){ // when pvc hard is pressed
-            // put code here
+            menuFrame.dispose();
+            run(2,2);
         }
         if(e.getSource()==pvpNormalButton){ // when pvp normal is pressed
             menuFrame.dispose();
-            run(1);
+            run(1,1);
         }
         if(e.getSource()==pvpHardButton){ // when pvp hard is pressed
             menuFrame.dispose();
-            run(2);
+            run(2,1);
         }
         if(e.getSource()==backButton) { // when back button is pressed
             menuFrame.remove(pvpNormalButton);

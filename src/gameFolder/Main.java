@@ -4,8 +4,6 @@ package gameFolder;
 
 //import javax.swing.*;
 
-import logic.DifficultyStuff;
-
 public class Main {
 
     public static void main(String[] args) {

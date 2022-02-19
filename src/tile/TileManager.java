@@ -1,7 +1,7 @@
 package tile;
 
+import gameFolder.Menu;
 import logic.GamePanel;
-import logic.DifficultyStuff;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,13 +13,12 @@ import java.io.InputStreamReader;
 public class TileManager {
 
     GamePanel gp;
-    DifficultyStuff ds;
     public Tile[] tile;
     public int[][] mapTileNum;
 
     public TileManager(GamePanel gp){
 
-        if (ds.globalDifficulty == 2) {
+        if (Menu.globalDifficulty == 2) {
             GamePanel.maxScreenCol = 22;
             GamePanel.maxScreenRow = 18;
         }
@@ -28,10 +27,10 @@ public class TileManager {
         mapTileNum = new int[(GamePanel.maxScreenCol + 2)][(GamePanel.maxScreenRow + 2)];
         getTileImage();
 
-        if(ds.globalDifficulty ==1){
+        if(Menu.globalDifficulty ==1){
             loadMap("/resources/maps/map02.txt");
         }
-        else if (ds.globalDifficulty ==2){
+        else if (Menu.globalDifficulty ==2){
             loadMap("/resources/maps/map01.txt");
         }
 
