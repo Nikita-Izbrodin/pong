@@ -5,11 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
-import java.util.Objects;
 
 import logic.GamePanel;
-
-
 
 public class Menu implements ActionListener {
 
@@ -177,84 +174,73 @@ public class Menu implements ActionListener {
         if (e.getSource() == leaderBoardButton) { // when leaderboard pressed
             // put code here
         }
+        //
+        // pvp OR pvc
+        //
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();
             run(1, 2);
-            //
-            // pvp OR pvc
-            //
-            if (e.getSource() == pvcNormalButton) { // when pvc normal pressed
-                // put code here
-            }
-            if (e.getSource() == pvcHardButton) { // when pvc hard is pressed
-                menuFrame.dispose();
-                run(2, 2);
-                if (e.getSource() == pvcHardButton) { // when pvc hard pressed
-                    // put code here
-                }
-                if (e.getSource() == pvpNormalButton) { // when pvp normal is pressed
-                    menuFrame.dispose();
-                    run(1, 1);
-                }
-                if (e.getSource() == pvpHardButton) { // when pvp hard is pressed
-                    if (e.getSource() == pvpNormalButton) { // when pvp normal pressed
-                        menuFrame.dispose();
-                        run(2, 1);
-                    }
-                    if (e.getSource() == pvpHardButton) { // when pvp hard pressed
-                        // put code here
-                    }
-                    if (e.getSource() == backButton) { // when back button is pressed
-                        menuFrame.remove(pvpNormalButton);
-                        menuFrame.remove(pvpHardButton);
+        }
+        if (e.getSource() == pvcHardButton) { // when pvc hard is pressed
+            menuFrame.dispose();
+            run(2, 2);
+        }
+        if (e.getSource() == pvpNormalButton) { // when pvp normal is pressed
+            menuFrame.dispose();
+            run(1, 1);
+        }
+        if (e.getSource() == pvpHardButton) { // when pvp hard is pressed
+            menuFrame.dispose();
+            run(2, 1);
+        }
+        if (e.getSource() == backButton) { // when back button is pressed
+            menuFrame.remove(pvpNormalButton);
+            menuFrame.remove(pvpHardButton);
 
-                        menuFrame.remove(pvcNormalButton);
-                        menuFrame.remove(pvcHardButton);
+            menuFrame.remove(pvcNormalButton);
+            menuFrame.remove(pvcHardButton);
 
-                        menuFrame.remove(white);
-                        menuFrame.remove(cyan);
-                        menuFrame.remove(green);
-                        menuFrame.remove(pink);
-                        menuFrame.remove(yellow);
-                        menuFrame.remove(magenta);
-                        menuFrame.remove(red);
-                        menuFrame.remove(orange);
+            menuFrame.remove(white);
+            menuFrame.remove(cyan);
+            menuFrame.remove(green);
+            menuFrame.remove(pink);
+            menuFrame.remove(yellow);
+            menuFrame.remove(magenta);
+            menuFrame.remove(red);
+            menuFrame.remove(orange);
 
-                        menuFrame.remove(backButton);
+            menuFrame.remove(backButton);
 
-                        addMainButtons();
+            addMainButtons();
 
-                        menuFrame.repaint();
-                    }
-                    //
-                    // skins
-                    //
-                    if (e.getSource() == white) { // when white pressed
-                        // put code here
-                    }
-                    if (e.getSource() == cyan) { // when cyan pressed
-                        // put code here
-                    }
-                    if (e.getSource() == green) { // when green pressed
-                        // put code here
-                    }
-                    if (e.getSource() == pink) { // when pink pressed
-                        // put code here
-                    }
-                    if (e.getSource() == yellow) { // when yellow pressed
-                        // put code here
-                    }
-                    if (e.getSource() == magenta) { // when magenta pressed
-                        // put code here
-                    }
-                    if (e.getSource() == red) { // when red pressed
-                        // put code here
-                    }
-                    if (e.getSource() == orange) { // when orange pressed
-                        // put code here
-                    }
-                }
-            }
+            menuFrame.repaint();
+        }
+        //
+        // skins
+        //
+        if (e.getSource() == white) { // when white pressed
+            // put code here
+        }
+        if (e.getSource() == cyan) { // when cyan pressed
+            // put code here
+        }
+        if (e.getSource() == green) { // when green pressed
+            // put code here
+        }
+        if (e.getSource() == pink) { // when pink pressed
+            // put code here
+        }
+        if (e.getSource() == yellow) { // when yellow pressed
+            // put code here
+        }
+        if (e.getSource() == magenta) { // when magenta pressed
+            // put code here
+        }
+        if (e.getSource() == red) { // when red pressed
+            // put code here
+        }
+        if (e.getSource() == orange) { // when orange pressed
+            // put code here
         }
     }
 }
