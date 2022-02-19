@@ -1,6 +1,7 @@
 package tile;
 
 import logic.GamePanel;
+import logic.DifficultyStuff;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,21 +9,31 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class TileManager {
 
     GamePanel gp;
+    DifficultyStuff ds;
     public Tile[] tile;
     public int[][] mapTileNum;
 
     public TileManager(GamePanel gp){
-        Random rand = new Random();
+
+        if (ds.globalDifficulty == 2) {
+            GamePanel.maxScreenCol = 22;
+            GamePanel.maxScreenRow = 18;
+        }
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[(gp.maxScreenCol + 2)][(gp.maxScreenRow + 2)];
+        mapTileNum = new int[(GamePanel.maxScreenCol + 2)][(GamePanel.maxScreenRow + 2)];
         getTileImage();
-        loadMap("/resources/maps/map02.txt");
+
+        if(ds.globalDifficulty ==1){
+            loadMap("/resources/maps/map02.txt");
+        }
+        else if (ds.globalDifficulty ==2){
+            loadMap("/resources/maps/map01.txt");
+        }
 
     }
 

@@ -24,7 +24,7 @@ public class Player2 extends Entity{
     }
 
     public void setDefaultValues(){
-        x = gp.tileSize*16;
+        x = gp.tileSize*(GamePanel.maxScreenCol-2);
         y = 100;
         speedY=8;
         speedX = 0;

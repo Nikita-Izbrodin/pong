@@ -8,32 +8,32 @@ import java.awt.Color;
 
 import logic.GamePanel;
 
-public class menu extends JFrame implements ActionListener {
+public class Menu extends JFrame implements ActionListener {
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
     // Player VS Computer
-    buttonTemplate pvcButton = new buttonTemplate(75, "Player VS Computer");
+    ButtonTemplate pvcButton = new ButtonTemplate(75, "Player VS Computer");
     // Player VS Player
-    buttonTemplate pvpButton = new buttonTemplate(175, "Player VS Player");
+    ButtonTemplate pvpButton = new ButtonTemplate(175, "Player VS Player");
     // Skins
-    buttonTemplate skinsButton = new buttonTemplate(275, "Skins");
+    ButtonTemplate skinsButton = new ButtonTemplate(275, "Skins");
     // Leaderboard
-    buttonTemplate leaderBoardButton = new buttonTemplate(375, "Leaderboard");
+    ButtonTemplate leaderBoardButton = new ButtonTemplate(375, "Leaderboard");
     // Exit
-    buttonTemplate exitButton = new buttonTemplate(475, "Exit");
+    ButtonTemplate exitButton = new ButtonTemplate(475, "Exit");
 
     // PVC Normal
-    buttonTemplate pvcNormalButton = new buttonTemplate(75, "P VS C - Normal");
+    ButtonTemplate pvcNormalButton = new ButtonTemplate(75, "P VS C - Normal");
     // PVC Hard
-    buttonTemplate pvcHardButton = new buttonTemplate(175, "P VS C - Hard");
+    ButtonTemplate pvcHardButton = new ButtonTemplate(175, "P VS C - Hard");
 
     // PVP Normal
-    buttonTemplate pvpNormalButton = new buttonTemplate(75, "P VS P - Normal");
+    ButtonTemplate pvpNormalButton = new ButtonTemplate(75, "P VS P - Normal");
     // PVP Hard
-    buttonTemplate pvpHardButton = new buttonTemplate(175, "P VS P - Hard");
+    ButtonTemplate pvpHardButton = new ButtonTemplate(175, "P VS P - Hard");
 
     // PVC or PVP Back (button)
-    buttonTemplate backButton = new buttonTemplate(275, "Back");
+    ButtonTemplate backButton = new ButtonTemplate(275, "Back");
 
     // initialising skin select buttons
     skinSelectTemplate white = new skinSelectTemplate(257,75);
@@ -84,7 +84,7 @@ public class menu extends JFrame implements ActionListener {
         menuFrame.add(exitButton);
     }
 
-    public menu() {
+    public Menu() {
         // allows button to do something when pressed
         pvcButton.addActionListener(this);
         pvpButton.addActionListener(this);

@@ -18,7 +18,7 @@ public class Player extends Entity{
         this.gp=gp;
         this.keyH = keyH;
 
-        solidArea = new Rectangle(18, 0, 15,142);
+        solidArea = new Rectangle(18, 0, 15,142);  //height 142
 
         setDefaultValues();
         getPlayerImage();
@@ -68,7 +68,7 @@ public class Player extends Entity{
 
         image = entityImage;
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize*3, null );
+        g2.drawImage(image, x, y, gp.tileSize, 3* gp.tileSize, null);
 
     }
 }
