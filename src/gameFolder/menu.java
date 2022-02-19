@@ -37,6 +37,26 @@ public class menu extends JFrame implements ActionListener {
 
     JFrame menuFrame;
 
+    private void run(){
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(true);
+        window.setTitle("Pong");
+
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+
+        window.pack();
+
+        window.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
+        window.setIconImage(icon.getImage()); // change icon of frame to pong_icon.png
+        window.setVisible(true);
+
+        gamePanel.setupGame();
+        gamePanel.startGameThread();
+    }
+
     menu() {
         // allows button to do something when pressed
         pvcButton.addActionListener(this);
@@ -117,23 +137,7 @@ public class menu extends JFrame implements ActionListener {
         }
         if(e.getSource()==pvpNormalButton){ // when pvp normal pressed
             menuFrame.dispose();
-            JFrame window = new JFrame();
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setResizable(true);
-            window.setTitle("Pong");
-
-            GamePanel gamePanel = new GamePanel();
-            window.add(gamePanel);
-
-            window.pack();
-
-            window.setLocationRelativeTo(null);
-            ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
-            window.setIconImage(icon.getImage()); // change icon of frame to pong_icon.png
-            window.setVisible(true);
-
-            gamePanel.setupGame();
-            gamePanel.startGameThread();
+            run();
         }
         if(e.getSource()==pvpHardButton){ // when pvp hard pressed
             // put code here
