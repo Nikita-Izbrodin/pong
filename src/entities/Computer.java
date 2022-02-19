@@ -12,6 +12,8 @@ import java.util.Objects;
 public class Computer extends Entity{
     GamePanel gp;
     public int score;
+    Menu mU;
+
     public Computer(GamePanel gp){
         this.gp=gp;
         solidArea = new Rectangle(18, 0, 15,142);
@@ -32,7 +34,7 @@ public class Computer extends Entity{
     public void getPlayerImage(){
 
         try {
-            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/player/paddle02.png")));
+            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(mU.player2Colour)));
 
         }catch(IOException e){
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package entities;
 
+import gameFolder.Menu;
 import logic.GamePanel;
 import logic.P2KeyHandler;
 
@@ -13,6 +14,8 @@ public class Player2 extends Entity{
     GamePanel gp;
     P2KeyHandler keyH;
     public int score;
+    Menu mU;
+
     public Player2(GamePanel gp, P2KeyHandler keyH){
         this.gp=gp;
         this.keyH = keyH;
@@ -34,7 +37,7 @@ public class Player2 extends Entity{
     public void getPlayerImage(){
 
         try {
-            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/player/paddle02.png")));
+            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(mU.player2Colour)));
 
         }catch(IOException e){
             e.printStackTrace();

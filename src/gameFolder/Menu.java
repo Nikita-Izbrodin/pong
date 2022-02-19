@@ -1,5 +1,6 @@
 package gameFolder;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -13,6 +14,9 @@ public class Menu implements ActionListener {
     public static int globalDifficulty;
 
     public static int playerOrComp;
+
+    public static String player1Colour = "/resources/player/paddleWhite.png";
+    public static String player2Colour = "/resources/player/paddleWhite.png";
 
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
@@ -39,8 +43,12 @@ public class Menu implements ActionListener {
 
     // PVC or PVP Back (button)
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
+    ButtonTemplate backButton2 = new ButtonTemplate(525, "Back");
 
     // initialising skin select buttons
+    ButtonTemplate player1 = new ButtonTemplate(10, "Player 1:");
+    ButtonTemplate player2 = new ButtonTemplate(250, "Player 2:");
+
     skinSelectTemplate white = new skinSelectTemplate(257, 75);
     skinSelectTemplate cyan = new skinSelectTemplate(357, 75);
     skinSelectTemplate green = new skinSelectTemplate(457, 75);
@@ -49,6 +57,15 @@ public class Menu implements ActionListener {
     skinSelectTemplate magenta = new skinSelectTemplate(357, 175);
     skinSelectTemplate red = new skinSelectTemplate(457, 175);
     skinSelectTemplate orange = new skinSelectTemplate(557, 175);
+
+    skinSelectTemplate white2 = new skinSelectTemplate(257, 325);
+    skinSelectTemplate cyan2 = new skinSelectTemplate(357, 325);
+    skinSelectTemplate green2 = new skinSelectTemplate(457, 325);
+    skinSelectTemplate pink2 = new skinSelectTemplate(557, 325);
+    skinSelectTemplate yellow2 = new skinSelectTemplate(257, 425);
+    skinSelectTemplate magenta2 = new skinSelectTemplate(357, 425);
+    skinSelectTemplate red2 = new skinSelectTemplate(457, 425);
+    skinSelectTemplate orange2 = new skinSelectTemplate(557, 425);
 
     JFrame menuFrame;
 
@@ -106,6 +123,25 @@ public class Menu implements ActionListener {
         pvpHardButton.addActionListener(this);
 
         backButton.addActionListener(this);
+        backButton2.addActionListener(this);
+
+        white.addActionListener(this);
+        cyan.addActionListener(this);
+        green.addActionListener(this);
+        pink.addActionListener(this);
+        yellow.addActionListener(this);
+        magenta.addActionListener(this);
+        red.addActionListener(this);
+        orange.addActionListener(this);
+
+        white2.addActionListener(this);
+        cyan2.addActionListener(this);
+        green2.addActionListener(this);
+        pink2.addActionListener(this);
+        yellow2.addActionListener(this);
+        magenta2.addActionListener(this);
+        red2.addActionListener(this);
+        orange2.addActionListener(this);
 
         // setting colours for buttons in skins
         white.setBackground(Color.WHITE);
@@ -116,6 +152,17 @@ public class Menu implements ActionListener {
         magenta.setBackground(Color.MAGENTA);
         red.setBackground(Color.RED);
         orange.setBackground(Color.ORANGE);
+
+        white2.setBackground(Color.WHITE);
+        cyan2.setBackground(Color.CYAN);
+        green2.setBackground(Color.GREEN);
+        pink2.setBackground(Color.PINK);
+        yellow2.setBackground(Color.YELLOW);
+        magenta2.setBackground(Color.MAGENTA);
+        red2.setBackground(Color.RED);
+        orange2.setBackground(Color.ORANGE);
+
+
 
         // creating the menu frame
         ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
@@ -158,6 +205,9 @@ public class Menu implements ActionListener {
         }
         if (e.getSource() == skinsButton) { // when skins pressed
             removeMainButtons();
+            menuFrame.add(player1);
+            menuFrame.add(player2);
+
             menuFrame.add(white);
             menuFrame.add(cyan);
             menuFrame.add(green);
@@ -167,7 +217,16 @@ public class Menu implements ActionListener {
             menuFrame.add(red);
             menuFrame.add(orange);
 
-            menuFrame.add(backButton);
+            menuFrame.add(white2);
+            menuFrame.add(cyan2);
+            menuFrame.add(green2);
+            menuFrame.add(pink2);
+            menuFrame.add(yellow2);
+            menuFrame.add(magenta2);
+            menuFrame.add(red2);
+            menuFrame.add(orange2);
+
+            menuFrame.add(backButton2);
 
             menuFrame.repaint();
         }
@@ -193,12 +252,15 @@ public class Menu implements ActionListener {
             menuFrame.dispose();
             run(2, 1);
         }
-        if (e.getSource() == backButton) { // when back button is pressed
+        if (e.getSource() == backButton || e.getSource() == backButton2) { // when either back button is pressed
             menuFrame.remove(pvpNormalButton);
             menuFrame.remove(pvpHardButton);
 
             menuFrame.remove(pvcNormalButton);
             menuFrame.remove(pvcHardButton);
+
+            menuFrame.remove(player1);
+            menuFrame.remove(player2);
 
             menuFrame.remove(white);
             menuFrame.remove(cyan);
@@ -209,38 +271,75 @@ public class Menu implements ActionListener {
             menuFrame.remove(red);
             menuFrame.remove(orange);
 
+            menuFrame.remove(white2);
+            menuFrame.remove(cyan2);
+            menuFrame.remove(green2);
+            menuFrame.remove(pink2);
+            menuFrame.remove(yellow2);
+            menuFrame.remove(magenta2);
+            menuFrame.remove(red2);
+            menuFrame.remove(orange2);
+
             menuFrame.remove(backButton);
+            menuFrame.remove(backButton2);
 
             addMainButtons();
 
             menuFrame.repaint();
+            System.out.println("the back button was pressed");
         }
         //
         // skins
         //
         if (e.getSource() == white) { // when white pressed
-            // put code here
+            player1Colour = "/resources/player/paddleWhite.png";
         }
         if (e.getSource() == cyan) { // when cyan pressed
-            // put code here
+            player1Colour = "/resources/player/paddleCyan.png";
         }
         if (e.getSource() == green) { // when green pressed
-            // put code here
+            player1Colour = "/resources/player/paddleGreen.png";
         }
         if (e.getSource() == pink) { // when pink pressed
-            // put code here
+            player1Colour = "/resources/player/paddlePink.png";
         }
         if (e.getSource() == yellow) { // when yellow pressed
-            // put code here
+            player1Colour = "/resources/player/paddleYellow.png";
         }
         if (e.getSource() == magenta) { // when magenta pressed
-            // put code here
+            player1Colour = "/resources/player/paddleMagenta.png";
         }
         if (e.getSource() == red) { // when red pressed
-            // put code here
+            player1Colour = "/resources/player/paddleRed.png";
         }
         if (e.getSource() == orange) { // when orange pressed
-            // put code here
+            player1Colour = "/resources/player/paddleOrange.png";
+        }
+
+
+        if (e.getSource() == white2) { // when white pressed
+            player2Colour = "/resources/player/paddleWhite.png";
+        }
+        if (e.getSource() == cyan2) { // when cyan pressed
+            player2Colour = "/resources/player/paddleCyan.png";
+        }
+        if (e.getSource() == green2) { // when green pressed
+            player2Colour = "/resources/player/paddleGreen.png";
+        }
+        if (e.getSource() == pink2) { // when pink pressed
+            player2Colour = "/resources/player/paddlePink.png";
+        }
+        if (e.getSource() == yellow2) { // when yellow pressed
+            player2Colour = "/resources/player/paddleYellow.png";
+        }
+        if (e.getSource() == magenta2) { // when magenta pressed
+            player2Colour = "/resources/player/paddleMagenta.png";
+        }
+        if (e.getSource() == red2) { // when red pressed
+            player2Colour = "/resources/player/paddleRed.png";
+        }
+        if (e.getSource() == orange2) { // when orange pressed
+            player2Colour = "/resources/player/paddleOrange.png";
         }
     }
 }

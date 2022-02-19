@@ -60,7 +60,6 @@ public class Ball extends Entity{
             variation=7;
         }
 
-
         Random rand = new Random();
 
         y += speedY;

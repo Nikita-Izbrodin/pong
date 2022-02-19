@@ -1,5 +1,6 @@
 package entities;
 
+import gameFolder.Menu;
 import logic.KeyHandler;
 import logic.GamePanel;
 
@@ -13,6 +14,8 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
     public int score;
+    Menu mU;
+
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp=gp;
@@ -33,9 +36,8 @@ public class Player extends Entity{
         score = 0;
     }
     public void getPlayerImage(){
-
         try {
-            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/player/paddle01.png")));
+            entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(mU.player1Colour)));
 
         }catch(IOException e){
             e.printStackTrace();
