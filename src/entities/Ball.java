@@ -16,6 +16,9 @@ public class Ball extends Entity{
     public double acceleration;
     public int variation;
 
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
+
     public Ball(GamePanel gp ){
         this.gp=gp;
 
@@ -40,6 +43,8 @@ public class Ball extends Entity{
 
         try {
             entityImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/balls/ball01.png")));
+            entityImage2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/balls/ball02.png")));
+            entityImage3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/balls/ball03.png")));
 
         }catch(IOException e){
             e.printStackTrace();
@@ -100,13 +105,33 @@ public class Ball extends Entity{
             gp.player2.score +=1;
 
         }
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 3;
+            }else if (spriteNum == 3) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
 
     }
 
     public void draw(Graphics g2){
         BufferedImage image = null;
 
-        image = entityImage;
+        if (spriteNum == 1) {
+            image = entityImage;
+        }
+        if (spriteNum == 2) {
+            image = entityImage2;
+        }
+        if (spriteNum == 3) {
+            image = entityImage3;
+        }
+
 
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null );
 

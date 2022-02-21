@@ -10,7 +10,7 @@ public class Entity {
     public double speedX;
 
 
-    public BufferedImage entityImage;
+    public BufferedImage entityImage, entityImage2, entityImage3;
     public String direction;
     public Rectangle solidArea;
 //    public int solidAreaDefaultX, solidAreaDefaultY;
