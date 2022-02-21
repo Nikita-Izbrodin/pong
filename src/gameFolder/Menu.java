@@ -73,7 +73,7 @@ public class Menu implements ActionListener {
         playerOrComp = vs;
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setTitle("Pong");
 
         GamePanel gamePanel = new GamePanel();
@@ -285,7 +285,6 @@ public class Menu implements ActionListener {
             addMainButtons();
 
             menuFrame.repaint();
-            System.out.println("the back button was pressed");
         }
         //
         // skins
