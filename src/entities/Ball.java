@@ -105,18 +105,28 @@ public class Ball extends Entity{
             gp.player2.score +=1;
 
         }
+
         spriteCounter++;
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 3;
-            }else if (spriteNum == 3) {
-                spriteNum = 1;
+        if (spriteCounter > 8) {
+            if (speedX < 0) {
+                if (spriteNum == 1) {
+                    spriteNum = 3;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                } else if (spriteNum == 3) {
+                    spriteNum = 2;
+                }
+            } else if (speedX > 0) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 3;
+                } else if (spriteNum == 3) {
+                    spriteNum = 1;
+                }
             }
             spriteCounter = 0;
         }
-
     }
 
     public void draw(Graphics g2){
