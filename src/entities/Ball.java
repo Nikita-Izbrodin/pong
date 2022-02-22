@@ -74,6 +74,8 @@ public class Ball extends Entity{
         x += speedX;
 
         if (paddleCollision == 1){
+            x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width + 5;
+
             speedX = -speedX;
             speedX += acceleration;
             if(y+(gp.ball.solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){         ////////make it bounce up if it hits the top half doesnt work
@@ -83,6 +85,8 @@ public class Ball extends Entity{
             }
             System.out.println(speedX);
         }else if (paddleCollision == 2){
+            x = gp.tileSize*(GamePanel.maxScreenCol-2) - 5;
+
             speedX += acceleration;
             speedX = -speedX;
             if(y+solidArea.height/2 > gp.player2.y+gp.player2.solidArea.height/2 || y+solidArea.height/2 > gp.compAI.y+gp.compAI.solidArea.height/2){
