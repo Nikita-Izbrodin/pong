@@ -104,12 +104,14 @@ public class Ball extends Entity{
             gp.playSE(3);
             setDefaultValues();
             gp.player.score +=1;
+            gp.compAI.setDefaultValues();
 
         }
         if (x + solidArea.x <= 48){
             gp.playSE(3);
             setDefaultValues();
             gp.player2.score +=1;
+            gp.compAI.setDefaultValues();
 
         }
 

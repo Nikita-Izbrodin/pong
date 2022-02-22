@@ -30,7 +30,7 @@ public class Player2 extends Entity{
 
     public void setDefaultValues(){
         x = gp.tileSize*(GamePanel.maxScreenCol-2);
-        y = 100;
+        y = gp.screenHeight/2 - solidArea.height/2;
         speedY=8;
         speedX = 0;
         direction = "down";

@@ -32,7 +32,7 @@ public class Player extends Entity{
 
     public void setDefaultValues(){
         x = gp.tileSize;
-        y = 100;
+        y = gp.screenHeight/2 - solidArea.height/2;
         speedY=8;
         speedX = 0;
         direction = "down";
