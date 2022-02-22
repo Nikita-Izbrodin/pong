@@ -41,8 +41,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Ball ball = new Ball(this);
 
     public GamePanel() {
-
-
         if (Menu.globalDifficulty == 2) {
             GamePanel.maxScreenCol = 22;
             GamePanel.maxScreenRow = 18;

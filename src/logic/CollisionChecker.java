@@ -1,6 +1,7 @@
 package logic;
 
 import entities.Entity;
+import gameFolder.Menu;
 
 public class CollisionChecker {
 
@@ -92,8 +93,15 @@ public class CollisionChecker {
         if (entity.solidArea.intersects(gp.player.solidArea)) {
             index = 1;
         }
-        if(entity.solidArea.intersects(gp.player2.solidArea) || entity.solidArea.intersects(gp.compAI.solidArea)){
-            index = 2;
+
+        if(Menu.playerOrComp == 1){
+            if(entity.solidArea.intersects(gp.player2.solidArea)){
+                index = 2;
+            }
+        }else if(Menu.playerOrComp==2){
+            if(entity.solidArea.intersects(gp.compAI.solidArea)){
+                index = 2;
+            }
         }
 
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;

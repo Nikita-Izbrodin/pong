@@ -40,6 +40,14 @@ public class Ball extends Entity{
         }else{
             speedX= 7;
         }
+        if (Menu.globalDifficulty == 1) {
+            acceleration = 0.3;
+            variation=4;
+        }
+        if (Menu.globalDifficulty == 2) {
+            acceleration = 0.6;
+            variation=7;
+        }
     }
 
     public void getBallImage(){
@@ -58,16 +66,6 @@ public class Ball extends Entity{
         //CHECK PADDLE COLLISION
         int paddleCollision = gp.cChecker.checkObject(this);
 
-        if (Menu.globalDifficulty == 1) {
-            acceleration = 0.3;
-            variation=4;
-
-        }
-        if (Menu.globalDifficulty == 2) {
-            acceleration = 0.6;
-            variation=7;
-        }
-
         Random rand = new Random();
 
         y += speedY;
@@ -75,7 +73,6 @@ public class Ball extends Entity{
 
         if (paddleCollision == 1){
             x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
-
             speedX = -speedX;
             speedX += acceleration;
             if(y+(gp.ball.solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){         ////////make it bounce up if it hits the top half doesnt work
@@ -97,7 +94,13 @@ public class Ball extends Entity{
             System.out.println(speedX);
         }
 
-        if(y + solidArea.y + solidArea.height >= gp.screenHeight - 48 || y + solidArea.y <= 48 ){
+        if(y + solidArea.y + solidArea.height >= gp.screenHeight - 48){
+            y = gp.screenHeight -(solidArea.height +solidArea.y + GamePanel.tileSize);
+            speedY = -speedY;
+
+        }
+        if( y + solidArea.y <= 48 ){
+            y = 49;
             speedY = -speedY;
         }
         if (x + solidArea.x +solidArea.width >= gp.screenWidth - 48){
