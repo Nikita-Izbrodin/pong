@@ -74,7 +74,7 @@ public class Ball extends Entity{
         x += speedX;
 
         if (paddleCollision == 1){
-            x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width + 5;
+            x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
 
             speedX = -speedX;
             speedX += acceleration;
@@ -85,7 +85,7 @@ public class Ball extends Entity{
             }
             System.out.println(speedX);
         }else if (paddleCollision == 2){
-            x = gp.tileSize*(GamePanel.maxScreenCol-2) - 5;
+            x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
 
             speedX += acceleration;
             speedX = -speedX;
