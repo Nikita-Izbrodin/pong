@@ -12,7 +12,7 @@ public class Entity {
 
     public BufferedImage entityImage, entityImage2, entityImage3;
     public String direction;
-    public Rectangle solidArea;
-//    public int solidAreaDefaultX, solidAreaDefaultY;
+    public Rectangle solidArea,solidArea2;
+    public int solidAreaDefaultX, solidAreaDefaultY, solidArea2DefaultX, solidArea2DefaultY;
     public boolean collisionOn = false;
 }

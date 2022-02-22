@@ -23,6 +23,9 @@ public class Ball extends Entity{
         this.gp=gp;
 
         solidArea = new Rectangle(15,15,18,18);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
         setDefaultValues();
         getBallImage();
     }
@@ -73,19 +76,19 @@ public class Ball extends Entity{
         if (paddleCollision == 1){
             speedX = -speedX;
             speedX += acceleration;
-            if(rand.nextInt(2)==1){
-                speedY= -(rand.nextInt(3)+3);
+            if(y+(gp.ball.solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){         ////////make it bounce up if it hits the top half doesnt work
+                speedY= (rand.nextInt(variation)+3);
             }else{
-                speedY= (rand.nextInt(3)+3);
+                speedY= -(rand.nextInt(variation)+3);
             }
             System.out.println(speedX);
         }else if (paddleCollision == 2){
             speedX += acceleration;
             speedX = -speedX;
-            if(rand.nextInt(2)==1){
-                speedY= -(rand.nextInt(variation)+2);
-            }else{
+            if(y+solidArea.height/2 > gp.player2.y+gp.player2.solidArea.height/2 || y+solidArea.height/2 > gp.compAI.y+gp.compAI.solidArea.height/2){
                 speedY= (rand.nextInt(variation)+2);
+            }else{
+                speedY= -(rand.nextInt(variation)+2);
             }
             System.out.println(speedX);
         }

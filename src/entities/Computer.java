@@ -16,7 +16,11 @@ public class Computer extends Entity{
 
     public Computer(GamePanel gp){
         this.gp=gp;
+
         solidArea = new Rectangle(18, 0, 15,142);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -26,6 +30,7 @@ public class Computer extends Entity{
         y = 100;
         if(Menu.globalDifficulty == 2){
             speedY = 6;
+
         }else{speedY = 4;}
         speedX = 0;
         direction = "down";
