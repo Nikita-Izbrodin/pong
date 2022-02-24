@@ -132,6 +132,22 @@ public class TileManager {
                 mapCounter = 0;
             }
         }
+        if(Menu.discoMode && Menu.globalDifficulty == 2){
+            if(mapCounter > 12){
+                if (mapNum == 1) {
+                    mapNum = 2;
+                    loadMap("/resources/maps/mapHR2.txt");
+                } else if (mapNum == 2) {
+                    mapNum = 3;
+                    loadMap("/resources/maps/mapHR3.txt");
+                }else if (mapNum == 3) {
+                    mapNum = 1;
+                    loadMap("/resources/maps/mapHR1.txt");
+                }
+                mapCounter = 0;
+            }
+        }
+
         mapCounter++;
 
         while(col < (gp.maxScreenCol) && row< (gp.maxScreenRow)){

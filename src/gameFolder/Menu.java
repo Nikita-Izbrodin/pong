@@ -2,9 +2,12 @@ package gameFolder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import logic.GamePanel;
 
@@ -15,6 +18,8 @@ public class Menu implements ActionListener {
     public static int playerOrComp;
 
     public static boolean discoMode = false;
+
+    public static boolean musicToggle = true;
 
     public static String player1Colour = "/resources/player/paddleWhite.png";
     public static String player2Colour = "/resources/player/paddleWhite.png";
@@ -73,6 +78,20 @@ public class Menu implements ActionListener {
 
     public JFrame menuFrame;
 
+    public void createImageButton(int x, int  y, String filePath) {
+        BufferedImage buttonIcon = null;
+        try {
+            buttonIcon = ImageIO.read(new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JButton button = new JButton(new ImageIcon(buttonIcon));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+        button.setBounds(x, y, 48, 48);
+    }
+
     private void run(int dif, int vs) {
         globalDifficulty = dif;
         playerOrComp = vs;
@@ -117,6 +136,7 @@ public class Menu implements ActionListener {
 
     public Menu() {
         // allows button to do something when pressed
+
         pvcButton.addActionListener(this);
         pvpButton.addActionListener(this);
         skinsButton.addActionListener(this);
