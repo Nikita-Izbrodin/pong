@@ -43,7 +43,7 @@ public class Menu implements ActionListener {
     ButtonTemplate pvpHardButton = new ButtonTemplate(175, "P VS P - Hard");
 
     // Disco
-    SkinSelectTemplate discoButton = new SkinSelectTemplate(0, 0);
+    SecretButtonTemplate discoButton = new SecretButtonTemplate(0, 0);
 
     // PVC or PVP Back (button)
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
@@ -71,7 +71,7 @@ public class Menu implements ActionListener {
     SkinSelectTemplate red2 = new SkinSelectTemplate(457, 425);
     SkinSelectTemplate orange2 = new SkinSelectTemplate(557, 425);
 
-    JFrame menuFrame;
+    public JFrame menuFrame;
 
     private void run(int dif, int vs) {
         globalDifficulty = dif;
@@ -112,6 +112,7 @@ public class Menu implements ActionListener {
         menuFrame.add(leaderBoardButton);
         menuFrame.add(exitButton);
         menuFrame.add(discoButton);
+
     }
 
     public Menu() {
@@ -246,9 +247,11 @@ public class Menu implements ActionListener {
         // pvp OR pvc
         //
         if (e.getSource() == discoButton) {
-            menuFrame.dispose();
-            run(1,2);
-            discoMode = true;
+            if (discoMode)
+            discoMode = false;
+            else{
+                discoMode = true;
+            }
         }
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();

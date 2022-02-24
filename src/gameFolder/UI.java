@@ -9,12 +9,11 @@ import java.text.DecimalFormat;
 public class UI {
 
     GamePanel gp;
-    Font arial_40, arial_80B;
-    BufferedImage keyImage;
+    Font arial_40;
 
     public boolean messageOn = false;
     public String message = "";
-    int messageCounter = 0;
+
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -23,7 +22,6 @@ public class UI {
         this.gp = gp;
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
 
     }
 

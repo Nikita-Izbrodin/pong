@@ -27,7 +27,7 @@ public class TileManager {
         mapCounter = 1;
         mapNum = 1;
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[15];
         mapTileNum = new int[(GamePanel.maxScreenCol + 2)][(GamePanel.maxScreenRow + 2)];
         getTileImage();
 
@@ -65,6 +65,18 @@ public class TileManager {
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/middleR2.png"));
 
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/red.png"));
+
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/blue.png"));
+
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/green.png"));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/wallPurple.png"));
+            tile[10].collision = true;
 
 
         }catch(IOException e){
@@ -105,14 +117,17 @@ public class TileManager {
     public void draw(Graphics2D g2){
         int col = 0, row = 0, x = 0, y = 0;
 
-        if (Menu.discoMode){
-            if (mapCounter > 10) {
+        if (Menu.discoMode && Menu.globalDifficulty == 1){
+            if (mapCounter > 12) {
                 if (mapNum == 1) {
                     mapNum = 2;
-                    loadMap("/resources/maps/map02.txt");
+                    loadMap("/resources/maps/mapR2.txt");
                 } else if (mapNum == 2) {
+                    mapNum = 3;
+                    loadMap("/resources/maps/mapR3.txt");
+                }else if (mapNum == 3) {
                     mapNum = 1;
-                    loadMap("/resources/maps/map03.txt");
+                    loadMap("/resources/maps/mapR1.txt");
                 }
                 mapCounter = 0;
             }
