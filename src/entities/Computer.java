@@ -29,9 +29,9 @@ public class Computer extends Entity{
         x = gp.tileSize*(GamePanel.maxScreenCol-2);
         y = gp.screenHeight/2 - solidArea.height/2;
         if(Menu.globalDifficulty == 2){
-            speedY = 6;
+            speedY = 8;
 
-        }else{speedY = 4;}
+        }else{speedY = 6;}
         speedX = 0;
         direction = "down";
         score = 0;

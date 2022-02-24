@@ -14,6 +14,8 @@ public class Menu implements ActionListener {
 
     public static int playerOrComp;
 
+    public static boolean discoMode = false;
+
     public static String player1Colour = "/resources/player/paddleWhite.png";
     public static String player2Colour = "/resources/player/paddleWhite.png";
 
@@ -39,6 +41,9 @@ public class Menu implements ActionListener {
     ButtonTemplate pvpNormalButton = new ButtonTemplate(75, "P VS P - Normal");
     // PVP Hard
     ButtonTemplate pvpHardButton = new ButtonTemplate(175, "P VS P - Hard");
+
+    // Disco
+    SkinSelectTemplate discoButton = new SkinSelectTemplate(0, 0);
 
     // PVC or PVP Back (button)
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
@@ -96,6 +101,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(skinsButton);
         menuFrame.remove(leaderBoardButton);
         menuFrame.remove(exitButton);
+        menuFrame.remove(discoButton);
 
     }
 
@@ -105,6 +111,7 @@ public class Menu implements ActionListener {
         menuFrame.add(skinsButton);
         menuFrame.add(leaderBoardButton);
         menuFrame.add(exitButton);
+        menuFrame.add(discoButton);
     }
 
     public Menu() {
@@ -141,6 +148,9 @@ public class Menu implements ActionListener {
         magenta2.addActionListener(this);
         red2.addActionListener(this);
         orange2.addActionListener(this);
+
+        discoButton.addActionListener(this);
+        discoButton.setBackground(Color.WHITE);
 
         // setting colours for buttons in skins
         white.setBackground(Color.WHITE);
@@ -235,6 +245,11 @@ public class Menu implements ActionListener {
         //
         // pvp OR pvc
         //
+        if (e.getSource() == discoButton) {
+            menuFrame.dispose();
+            run(1,2);
+            discoMode = true;
+        }
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();
             run(1, 2);
