@@ -73,24 +73,37 @@ public class Ball extends Entity{
 
         if (paddleCollision == 1){
             x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
+
             speedX = -speedX;
             speedX += acceleration;
-            if(y+(gp.ball.solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){         ////////make it bounce up if it hits the top half doesnt work
-                speedY= (rand.nextInt(variation)+3);
+
+            if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
+                speedY = (rand.nextInt(variation) + 5);
+            }else if(y+(solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){
+                speedY= (rand.nextInt(variation)+2);
+            }else if(y+(solidArea.height/6) > gp.player.y+(gp.player.solidArea.height/6)){
+                speedY= -(rand.nextInt(variation)+2);
             }else{
-                speedY= -(rand.nextInt(variation)+3);
+                speedY= -(rand.nextInt(variation)+5);
             }
+
             System.out.println(speedX);
         }else if (paddleCollision == 2){
             x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
 
             speedX += acceleration;
             speedX = -speedX;
-            if(y+solidArea.height/2 > gp.player2.y+gp.player2.solidArea.height/2 || y+solidArea.height/2 > gp.compAI.y+gp.compAI.solidArea.height/2){
+
+            if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
+                speedY = (rand.nextInt(variation) + 5);
+            }else if(y+(solidArea.height/2) > gp.player2.y+(gp.player2.solidArea.height/2) || y+(solidArea.height/2) > gp.compAI.y+(gp.compAI.solidArea.height/4)*3){
                 speedY= (rand.nextInt(variation)+2);
-            }else{
+            }else if(y+(solidArea.height/4) > gp.player2.y+(gp.player2.solidArea.height/6) || y+(solidArea.height/4) > gp.compAI.y+(gp.compAI.solidArea.height/6)){
                 speedY= -(rand.nextInt(variation)+2);
+            }else{
+                speedY= -(rand.nextInt(variation)+5);
             }
+
             System.out.println(speedX);
         }
 
@@ -100,7 +113,7 @@ public class Ball extends Entity{
 
         }
         if( y + solidArea.y <= 48 ){
-            y = 49;
+            y = 48 -solidArea.y;
             speedY = -speedY;
         }
         if (x + solidArea.x +solidArea.width >= gp.screenWidth - 48){
@@ -118,8 +131,11 @@ public class Ball extends Entity{
 
         }
 
-        spriteCounter++;
-        if (spriteCounter > 8) {
+        if (speedX>10 ||speedX<-10){
+            spriteCounter ++;
+        }
+        spriteCounter += 2;
+        if (spriteCounter > 10) {
             if (speedX < 0) {
                 if (spriteNum == 1) {
                     spriteNum = 3;

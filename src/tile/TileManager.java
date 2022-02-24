@@ -15,6 +15,8 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
+    public int mapCounter;
+    public int mapNum;
 
     public TileManager(GamePanel gp){
 
@@ -22,6 +24,8 @@ public class TileManager {
             GamePanel.maxScreenCol = 22;
             GamePanel.maxScreenRow = 18;
         }
+        mapCounter = 1;
+        mapNum = 1;
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[(GamePanel.maxScreenCol + 2)][(GamePanel.maxScreenRow + 2)];
@@ -100,6 +104,20 @@ public class TileManager {
 
     public void draw(Graphics2D g2){
         int col = 0, row = 0, x = 0, y = 0;
+
+        if (Menu.discoMode){
+            if (mapCounter > 10) {
+                if (mapNum == 1) {
+                    mapNum = 2;
+                    loadMap("/resources/maps/map02.txt");
+                } else if (mapNum == 2) {
+                    mapNum = 1;
+                    loadMap("/resources/maps/map03.txt");
+                }
+                mapCounter = 0;
+            }
+        }
+        mapCounter++;
 
         while(col < (gp.maxScreenCol) && row< (gp.maxScreenRow)){
 
