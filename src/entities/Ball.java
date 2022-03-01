@@ -17,6 +17,7 @@ public class Ball extends Entity{
     public int variation;
     public int rallyCount;
 
+    public int maxRally = 0;
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
@@ -108,6 +109,10 @@ public class Ball extends Entity{
             }
 
             System.out.println(speedX);
+        }
+
+        if (rallyCount>maxRally){
+            maxRally=rallyCount;
         }
 
         if(y + solidArea.y + solidArea.height >= gp.screenHeight - 48){
