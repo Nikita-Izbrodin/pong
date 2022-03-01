@@ -2,12 +2,8 @@ package gameFolder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import logic.GamePanel;
 
@@ -47,9 +43,6 @@ public class Menu implements ActionListener {
     // PVP Hard
     ButtonTemplate pvpHardButton = new ButtonTemplate(175, "P VS P - Hard");
 
-    // Disco
-    SecretButtonTemplate discoButton = new SecretButtonTemplate(0, 0);
-
     // PVC or PVP Back (button)
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
     ButtonTemplate backButton2 = new ButtonTemplate(525, "Back");
@@ -75,6 +68,12 @@ public class Menu implements ActionListener {
     SkinSelectTemplate magenta2 = new SkinSelectTemplate(357, 425);
     SkinSelectTemplate red2 = new SkinSelectTemplate(457, 425);
     SkinSelectTemplate orange2 = new SkinSelectTemplate(557, 425);
+
+    //SPECIAL BUTTONS
+    ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0, "/resources/buttonImages/discoBall.png");
+
+    ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475, "/resources/buttonImages/musicButton.png");
+
 
     public JFrame menuFrame;
 
@@ -107,6 +106,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(leaderBoardButton);
         menuFrame.remove(exitButton);
         menuFrame.remove(discoButton);
+        menuFrame.remove(musicButton);
 
     }
 
@@ -117,7 +117,7 @@ public class Menu implements ActionListener {
         menuFrame.add(leaderBoardButton);
         menuFrame.add(exitButton);
         menuFrame.add(discoButton);
-
+        menuFrame.add(musicButton);
     }
 
     public Menu() {
@@ -128,6 +128,7 @@ public class Menu implements ActionListener {
         skinsButton.addActionListener(this);
         leaderBoardButton.addActionListener(this);
         exitButton.addActionListener(e -> menuFrame.dispose());
+        musicButton.addActionListener(this);
 
         pvcNormalButton.addActionListener(this);
         pvcHardButton.addActionListener(this);

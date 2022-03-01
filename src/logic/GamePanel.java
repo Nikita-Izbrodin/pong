@@ -8,7 +8,6 @@ import entities.Computer;
 import entities.Player;
 import entities.Player2;
 import gameFolder.Menu;
-import gameFolder.SecretButtonTemplate;
 import gameFolder.Sound;
 import gameFolder.UI;
 import tile.TileManager;
@@ -23,8 +22,6 @@ public class GamePanel extends JPanel implements Runnable  {
     public static int maxScreenRow = 14;
     public static int screenWidth = tileSize * maxScreenCol;
     public static int screenHeight = tileSize * maxScreenRow;
-
-    SecretButtonTemplate discoButton = new SecretButtonTemplate(0, 0);
 
     //fps
     int FPS = 60;
