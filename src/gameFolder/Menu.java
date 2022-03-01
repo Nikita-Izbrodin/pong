@@ -70,10 +70,9 @@ public class Menu implements ActionListener {
     SkinSelectTemplate orange2 = new SkinSelectTemplate(557, 425);
 
     //SPECIAL BUTTONS
-    ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0, "/resources/buttonImages/discoBall.png");
+    ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/resources/buttonImages/discoBall.png");
 
-    ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475, "/resources/buttonImages/musicButton.png");
-
+    ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/resources/buttonImages/musicButton.png");
 
     public JFrame menuFrame;
 

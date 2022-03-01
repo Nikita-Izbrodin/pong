@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class ImageButtonTemplate extends JButton {
 
-    public ImageButtonTemplate(int x, int  y, String imageLoc) {
-        this.setBounds(x, y, 32, 32);
+    public ImageButtonTemplate(int x, int  y,int width,int height, String imageLoc) {
+        this.setBounds(x, y, width, height);
         this.setFocusable(false); // removes focus box around text
         this.setBorder(BorderFactory.createEtchedBorder()); // adds border around box
 
