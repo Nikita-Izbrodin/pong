@@ -58,7 +58,9 @@ public class GamePanel extends JPanel implements Runnable  {
 
 
     public void setupGame(){
-        playMusic(0);
+        if (Menu.musicToggle){
+            playMusic(0);
+        }
     }
 
     public void startGameThread() {

@@ -259,6 +259,13 @@ public class Menu implements ActionListener {
                 discoMode = true;
             }
         }
+        if (e.getSource() == musicButton) {
+            if (musicToggle)
+                musicToggle = false;
+            else{
+                musicToggle = true;
+            }
+        }
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();
             run(1, 2);

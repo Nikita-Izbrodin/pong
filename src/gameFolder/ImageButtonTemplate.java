@@ -10,7 +10,6 @@ public class ImageButtonTemplate extends JButton {
         this.setBounds(x, y, width, height);
         this.setFocusable(false); // removes focus box around text
         this.setBorder(BorderFactory.createEtchedBorder()); // adds border around box
-
         try {
             Image img = ImageIO.read(getClass().getResource(imageLoc));
             this.setIcon(new ImageIcon(img));
