@@ -10,6 +10,7 @@ import entities.Player2;
 import gameFolder.Menu;
 import gameFolder.Sound;
 import gameFolder.UI;
+import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable  {
@@ -39,6 +40,8 @@ public class GamePanel extends JPanel implements Runnable  {
     public Player2 player2 = new Player2(this, keyG);
     public Computer compAI = new Computer(this);
     public Ball ball = new Ball(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public SuperObject obj[] = new SuperObject[10];
 
     public GamePanel() {
         if (Menu.globalDifficulty == 2) {
