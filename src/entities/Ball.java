@@ -15,6 +15,7 @@ public class Ball extends Entity{
 
     public double acceleration;
     public int variation;
+    public int rallyCount;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -35,6 +36,7 @@ public class Ball extends Entity{
         x = gp.screenWidth/2 - gp.tileSize/2;
         y = gp.screenHeight/2 - gp.tileSize/2;
         speedY= 0;
+        rallyCount = 0;
         if(rand.nextInt(2)==1){
             speedX=  -7;
         }else{
@@ -76,6 +78,7 @@ public class Ball extends Entity{
 
             speedX = -speedX;
             speedX += acceleration;
+            rallyCount += 1;
 
             if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
@@ -87,12 +90,12 @@ public class Ball extends Entity{
                 speedY= -(rand.nextInt(variation)+5);
             }
 
-            System.out.println(speedX);
         }else if (paddleCollision == 2){
             x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
 
             speedX += acceleration;
             speedX = -speedX;
+            rallyCount += 1;
 
             if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
