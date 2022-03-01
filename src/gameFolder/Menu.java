@@ -78,20 +78,6 @@ public class Menu implements ActionListener {
 
     public JFrame menuFrame;
 
-    public void createImageButton(int x, int  y, String filePath) {
-        BufferedImage buttonIcon = null;
-        try {
-            buttonIcon = ImageIO.read(new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JButton button = new JButton(new ImageIcon(buttonIcon));
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setContentAreaFilled(false);
-        button.setBounds(x, y, 48, 48);
-    }
-
     private void run(int dif, int vs) {
         globalDifficulty = dif;
         playerOrComp = vs;
