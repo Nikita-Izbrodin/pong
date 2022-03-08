@@ -66,18 +66,23 @@ public class UI {
             gp.gameThread = null;
         } else {
 
+            String text;
+            int textLength;
+
             g2.setFont(arial_30);
             g2.setColor(Color.BLACK);
 
             //TIME
             playTime += (double) 1 / 60;
-            g2.drawString(gp.player.score + "  Time " + dFormat.format(playTime) + "  " + gp.player2.score, gp.tileSize * (gp.maxScreenCol / 2 - 2), 44);
+            text = gp.player.score + "  Time " + dFormat.format(playTime) + "  " + gp.player2.score;
+            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            g2.drawString(text, gp.screenWidth / 2 - textLength / 2, 44);
 
             g2.drawString("Rally count: " + gp.ball.rallyCount, gp.tileSize * (gp.maxScreenCol / 2 - 2), gp.screenHeight - 10);
 
             g2.drawString("Ball x speed: " + dFormat1.format(Math.sqrt(gp.ball.speedX * gp.ball.speedX)), gp.tileSize * (gp.maxScreenCol - 5), gp.screenHeight - 10);
 
-            g2.drawString("Max rally: " + gp.ball.maxRally, gp.tileSize, gp.screenHeight - 10);
+            //g2.drawString("Max rally: " + gp.ball.maxRally, gp.tileSize, gp.screenHeight - 10);
 
 
         }

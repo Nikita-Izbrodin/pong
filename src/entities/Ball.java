@@ -17,6 +17,7 @@ public class Ball extends Entity{
     public int variation;
     public int rallyCount;
 
+    public int lastCollision = 1;
     public int maxRally = 0;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -67,48 +68,17 @@ public class Ball extends Entity{
 
     public void update(){
         //CHECK PADDLE COLLISION
-        int Collision = gp.cChecker.checkObject(this);
-
-        Random rand = new Random();
+        int collisionValue = gp.cChecker.checkObject(this);
 
         y += speedY;
         x += speedX;
 
-        if (Collision == 901){
-            x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
+        if (collisionValue == 1 || collisionValue == 2 || collisionValue == 3 || collisionValue == 4 ){
+            pickUpObject(collisionValue);
+        }
 
-            speedX = -speedX;
-            speedX += acceleration;
-            rallyCount += 1;
-
-            if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
-                speedY = (rand.nextInt(variation) + 5);
-            }else if(y+(solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){
-                speedY= (rand.nextInt(variation)+2);
-            }else if(y+(solidArea.height/6) > gp.player.y+(gp.player.solidArea.height/6)){
-                speedY= -(rand.nextInt(variation)+2);
-            }else{
-                speedY= -(rand.nextInt(variation)+5);
-            }
-
-        }else if (Collision == 902){
-            x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
-
-            speedX += acceleration;
-            speedX = -speedX;
-            rallyCount += 1;
-
-            if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
-                speedY = (rand.nextInt(variation) + 5);
-            }else if(y+(solidArea.height/2) > gp.player2.y+(gp.player2.solidArea.height/2) || y+(solidArea.height/2) > gp.compAI.y+(gp.compAI.solidArea.height/4)*3){
-                speedY= (rand.nextInt(variation)+2);
-            }else if(y+(solidArea.height/4) > gp.player2.y+(gp.player2.solidArea.height/6) || y+(solidArea.height/4) > gp.compAI.y+(gp.compAI.solidArea.height/6)){
-                speedY= -(rand.nextInt(variation)+2);
-            }else{
-                speedY= -(rand.nextInt(variation)+5);
-            }
-
-            System.out.println(speedX);
+        if (collisionValue == 901 || collisionValue == 902){
+            paddleCollision(collisionValue);
         }
 
         if (rallyCount>maxRally){
@@ -139,11 +109,11 @@ public class Ball extends Entity{
 
         }
 
-        if (gp.player.score == 3){
+        if (gp.player.score == 10){
             gp.winner = "Player 1";
             gp.gameFinished = true;
         }
-        else if(gp.player2.score == 3){
+        else if(gp.player2.score == 10){
             if (Menu.playerOrComp == 1){
                 gp.winner = "Player 2";
             }
@@ -174,6 +144,63 @@ public class Ball extends Entity{
                 }
             }
             spriteCounter = 0;
+        }
+    }
+
+    public void paddleCollision(int collisionValue){
+        Random rand = new Random();
+        if (collisionValue == 901){
+            x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
+
+            speedX = -speedX;
+            speedX += acceleration;
+            rallyCount += 1;
+
+            if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
+                speedY = (rand.nextInt(variation) + 5);
+            }else if(y+(solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){
+                speedY= (rand.nextInt(variation)+2);
+            }else if(y+(solidArea.height/6) > gp.player.y+(gp.player.solidArea.height/6)){
+                speedY= -(rand.nextInt(variation)+2);
+            }else{
+                speedY= -(rand.nextInt(variation)+5);
+            }
+
+        }else if (collisionValue == 902){
+            x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
+
+            speedX += acceleration;
+            speedX = -speedX;
+            rallyCount += 1;
+
+            if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
+                speedY = (rand.nextInt(variation) + 5);
+            }else if(y+(solidArea.height/2) > gp.player2.y+(gp.player2.solidArea.height/2) || y+(solidArea.height/2) > gp.compAI.y+(gp.compAI.solidArea.height/4)*3){
+                speedY= (rand.nextInt(variation)+2);
+            }else if(y+(solidArea.height/4) > gp.player2.y+(gp.player2.solidArea.height/6) || y+(solidArea.height/4) > gp.compAI.y+(gp.compAI.solidArea.height/6)){
+                speedY= -(rand.nextInt(variation)+2);
+            }else{
+                speedY= -(rand.nextInt(variation)+5);
+            }
+
+            System.out.println(speedX);
+        }
+    }
+
+    public void pickUpObject(int i){
+
+        if(i!= 999){
+            String objectName = gp.obj[i].name;
+
+            switch(objectName){
+                case"DirectionOrb":
+                    speedY = -speedY;
+                    break;
+                case"Door":
+
+                    break;
+            }
+            gp.obj[i] = null;
         }
     }
 
