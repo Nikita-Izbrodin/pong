@@ -139,11 +139,11 @@ public class Ball extends Entity{
 
         }
 
-        if (gp.player.score == 10){
+        if (gp.player.score == 3){
             gp.winner = "Player 1";
             gp.gameFinished = true;
         }
-        else if(gp.player2.score == 10){
+        else if(gp.player2.score == 3){
             if (Menu.playerOrComp == 1){
                 gp.winner = "Player 2";
             }

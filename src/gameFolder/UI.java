@@ -43,13 +43,13 @@ public class UI {
             y = gp.screenHeight / 2 - gp.tileSize * 3;
             g2.drawString(text, x, y);
 
-            text = "The total time was :" + dFormat.format(playTime) + "!";
+            text = "The total time was : " + dFormat.format(playTime) + "!";
             textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             x = gp.screenWidth / 2 - textLength / 2;
             y = gp.screenHeight / 2 - gp.tileSize * 2;
             g2.drawString(text, x, y);
 
-            text = "the highest rally was :" + gp.ball.maxRally + "!";
+            text = "the highest rally was : " + gp.ball.maxRally + "!";
             textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             x = gp.screenWidth / 2 - textLength / 2;
             y = gp.screenHeight / 2 - gp.tileSize;
