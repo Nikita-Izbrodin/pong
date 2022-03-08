@@ -15,15 +15,19 @@ public class AssetSetter {
     public void setObject(){
 
         Random rand = new Random();
+        int randomObject = rand.nextInt(10);
+        switch(randomObject){
+            case 0:
+                gp.obj[0] = new OBJ_DirectionOrb();
+                gp.obj[0].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
+                gp.obj[0].y = rand.nextInt(gp.screenHeight - 3*gp.tileSize)+gp.tileSize;
+                break;
+            case 2:
+                gp.obj[1] = new OBJ_DirectionOrb();
+                gp.obj[1].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
+                gp.obj[1].y = rand.nextInt(gp.screenHeight - 3*gp.tileSize)+gp.tileSize;
+        }
 
-        gp.obj[0] = new OBJ_DirectionOrb();
-        gp.obj[0].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
-        gp.obj[0].y = rand.nextInt(gp.screenHeight - 2*gp.tileSize)+gp.tileSize;
-
-        gp.obj[1] = new OBJ_DirectionOrb();
-        gp.obj[1].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
-        gp.obj[1].y = rand.nextInt(gp.screenHeight - 2*gp.tileSize)+gp.tileSize;
-//
 //        gp.obj[2] = new OBJ_Key();
 //        gp.obj[2].x = 38 * gp.tileSize;
 //        gp.obj[2].worldY = 8 * gp.tileSize;

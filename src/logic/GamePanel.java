@@ -2,6 +2,7 @@ package logic;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.Random;
 
 import entities.Ball;
 import entities.Computer;
@@ -66,7 +67,6 @@ public class GamePanel extends JPanel implements Runnable  {
         if (Menu.musicToggle){
             playMusic(0);
         }
-        aSetter.setObject();
     }
 
     public void startGameThread() {
@@ -113,6 +113,10 @@ public class GamePanel extends JPanel implements Runnable  {
     }
 
     public void update() {
+        Random rand = new Random();
+        if(rand.nextInt(80) == 1){
+            aSetter.setObject();
+        }
         player.update();
         if(Menu.playerOrComp == 1){
             player2.update();
