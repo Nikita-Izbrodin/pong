@@ -67,14 +67,14 @@ public class Ball extends Entity{
 
     public void update(){
         //CHECK PADDLE COLLISION
-        int paddleCollision = gp.cChecker.checkObject(this);
+        int Collision = gp.cChecker.checkObject(this);
 
         Random rand = new Random();
 
         y += speedY;
         x += speedX;
 
-        if (paddleCollision == 1){
+        if (Collision == 901){
             x = gp.tileSize + gp.player.solidArea.x + gp.player.solidArea.width;
 
             speedX = -speedX;
@@ -91,7 +91,7 @@ public class Ball extends Entity{
                 speedY= -(rand.nextInt(variation)+5);
             }
 
-        }else if (paddleCollision == 2){
+        }else if (Collision == 902){
             x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
 
             speedX += acceleration;
@@ -137,6 +137,18 @@ public class Ball extends Entity{
             gp.player2.score +=1;
             gp.compAI.setDefaultValues();
 
+        }
+
+        if (gp.player.score == 10){
+            gp.winner = "Player 1";
+            gp.gameFinished = true;
+        }
+        else if(gp.player2.score == 10){
+            if (Menu.playerOrComp == 1){
+                gp.winner = "Player 2";
+            }
+            else{gp.winner = "Computer";}
+            gp.gameFinished = true;
         }
 
         if (speedX>10 ||speedX<-10){

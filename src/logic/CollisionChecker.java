@@ -90,18 +90,27 @@ public class CollisionChecker {
 
         entity.solidArea.y += entity.speedY;
         entity.solidArea.x += entity.speedX;
+
         if (entity.solidArea.intersects(gp.player.solidArea)) {
-            index = 1;
+            index = 901;
         }
 
         if(Menu.playerOrComp == 1){
             if(entity.solidArea.intersects(gp.player2.solidArea)){
-                index = 2;
+                index = 902;
             }
         }else if(Menu.playerOrComp==2){
             if(entity.solidArea.intersects(gp.compAI.solidArea)){
-                index = 2;
+                index = 902;
             }
+        }
+
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] != null) {
+                gp.obj[i].solidArea.x = gp.obj[i].x + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].y + gp.obj[i].solidArea.y;
+            }
+
         }
 
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;

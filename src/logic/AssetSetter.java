@@ -17,12 +17,12 @@ public class AssetSetter {
         Random rand = new Random();
 
         gp.obj[0] = new OBJ_DirectionOrb();
-        gp.obj[0].x = rand.nextInt(gp.screenWidth - gp.tileSize)+gp.tileSize;
-        gp.obj[0].y = rand.nextInt(gp.screenHeight - gp.tileSize)+gp.tileSize;
+        gp.obj[0].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
+        gp.obj[0].y = rand.nextInt(gp.screenHeight - 2*gp.tileSize - gp.obj[0].solidArea.height)+gp.tileSize;
 
-//        gp.obj[1] = new OBJ_Key();
-//        gp.obj[1].x = 23 * gp.tileSize;
-//        gp.obj[1].worldY = 40 * gp.tileSize;
+        gp.obj[1] = new OBJ_DirectionOrb();
+        gp.obj[1].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
+        gp.obj[1].y = rand.nextInt(gp.screenHeight - 2*gp.tileSize - gp.obj[1].solidArea.height)+gp.tileSize;
 //
 //        gp.obj[2] = new OBJ_Key();
 //        gp.obj[2].x = 38 * gp.tileSize;
