@@ -64,10 +64,10 @@ public class GamePanel extends JPanel implements Runnable  {
         if (Menu.musicToggle){
             playMusic(0);
         }
+        aSetter.setObject();
     }
 
     public void startGameThread() {
-
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable  {
             }
 
             if(timer>=1000000000){
-                System.out.println("FPS:" + drawCount);
+                //System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
@@ -130,14 +130,18 @@ public class GamePanel extends JPanel implements Runnable  {
 
         tileM.draw(g2);
 
+        for (int i = 0; i < obj.length; i++) {
+            if(obj[i] != null){
+                obj[i].draw(g2, this);
+            }
+        }
+
         player.draw(g2);
         if(Menu.playerOrComp == 1){
             player2.draw(g2);
         }else if(Menu.playerOrComp==2){
             compAI.draw(g2);
         }
-
-
 
         ball.draw(g2);
 
