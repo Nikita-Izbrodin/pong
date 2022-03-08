@@ -23,7 +23,6 @@ public class CollisionChecker {
         int entityRightCol = entityRightWorldX / gp.tileSize;
         int entityTopRow = entityTopWorldY / gp.tileSize;
         int entityBottomRow = entityBottomWorldY / gp.tileSize;
-        String collisionDirection = " ";
 
         int tileNum1, tileNum2;
 
@@ -109,6 +108,9 @@ public class CollisionChecker {
             if (gp.obj[i] != null) {
                 gp.obj[i].solidArea.x = gp.obj[i].x + gp.obj[i].solidArea.x;
                 gp.obj[i].solidArea.y = gp.obj[i].y + gp.obj[i].solidArea.y;
+                if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                    index = i;
+                }
             }
 
         }

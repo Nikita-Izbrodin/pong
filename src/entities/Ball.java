@@ -73,7 +73,7 @@ public class Ball extends Entity{
         y += speedY;
         x += speedX;
 
-        if (collisionValue == 1 || collisionValue == 2 || collisionValue == 3 || collisionValue == 4 ){
+        if (collisionValue == 0 || collisionValue == 1 || collisionValue == 2 || collisionValue == 3 || collisionValue == 4 ){
             pickUpObject(collisionValue);
         }
 
