@@ -194,6 +194,11 @@ public class Ball extends Entity{
 
             switch(objectName){
                 case"DirectionOrb":
+                    if (speedY>0){
+                        speedY += 2;
+                }else{
+                        speedY-=2;
+                }
                     speedY = -speedY;
                     break;
                 case"Door":

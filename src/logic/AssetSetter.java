@@ -18,14 +18,26 @@ public class AssetSetter {
         int randomObject = rand.nextInt(2);
         switch(randomObject){
             case 0:
-                gp.obj[0] = new OBJ_DirectionOrb();
-                gp.obj[0].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
-                gp.obj[0].y = rand.nextInt(gp.screenHeight - 3*gp.tileSize)+gp.tileSize;
+                if (gp.obj[0] == null) {
+                    gp.obj[0] = new OBJ_DirectionOrb();
+                    gp.obj[0].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
+                    gp.obj[0].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
+                }
                 break;
             case 1:
-                gp.obj[1] = new OBJ_DirectionOrb();
-                gp.obj[1].x = rand.nextInt(gp.screenWidth - 6*gp.tileSize)+3*gp.tileSize;
-                gp.obj[1].y = rand.nextInt(gp.screenHeight - 3*gp.tileSize)+gp.tileSize;
+                if (gp.obj[1] == null) {
+                    gp.obj[1] = new OBJ_DirectionOrb();
+                    gp.obj[1].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
+                    gp.obj[1].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
+                }
+                break;
+            case 2:
+                if (gp.obj[2] == null) {
+                    gp.obj[2] = new OBJ_DirectionOrb();
+                    gp.obj[2].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
+                    gp.obj[2].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
+                }
+                break;
         }
 
 //        gp.obj[2] = new OBJ_Key();

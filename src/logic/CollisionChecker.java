@@ -111,6 +111,8 @@ public class CollisionChecker {
                 if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
                     index = i;
                 }
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
 
         }
@@ -126,8 +128,6 @@ public class CollisionChecker {
 
         entity.solidArea.x = gp.ball.solidAreaDefaultX;
         entity.solidArea.y = gp.ball.solidAreaDefaultY;
-
-
 
     return index;
     }

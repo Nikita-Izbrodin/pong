@@ -57,7 +57,7 @@ public class UI {
 
             g2.setFont(arial_80B);
             g2.setColor(Color.YELLOW);
-            text = "AMONGUS";
+            text = "Amongus!";
             textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             x = gp.screenWidth / 2 - textLength / 2;
             y = gp.screenHeight / 2 + gp.tileSize * 2;

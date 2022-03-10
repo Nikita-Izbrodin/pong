@@ -114,7 +114,7 @@ public class GamePanel extends JPanel implements Runnable  {
 
     public void update() {
         Random rand = new Random();
-        if(rand.nextInt(80) == 1){
+        if(rand.nextInt(1000) == 1){
             aSetter.setObject();
         }
         player.update();
