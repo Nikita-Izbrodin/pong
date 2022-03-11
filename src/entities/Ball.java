@@ -217,9 +217,9 @@ public class Ball extends Entity{
                     }
                     if (speedY>0){
                         speedY += 2;
-                    }else{
+                }else{
                         speedY-=2;
-                    }
+                }
                     speedY = -speedY;
                     speedX = -speedX;
                     break;
