@@ -201,8 +201,27 @@ public class Ball extends Entity{
                 }
                     speedY = -speedY;
                     break;
-                case"Door":
-
+                case"DirectionOrb2":
+                    if (speedX>0){
+                        speedX += 2;
+                    }else{
+                        speedX-=2;
+                    }
+                    speedX = -speedX;
+                    break;
+                case"ReverseOrb":
+                    if (speedX>0){
+                        speedX += 2;
+                    }else{
+                        speedX-=2;
+                    }
+                    if (speedY>0){
+                        speedY += 2;
+                    }else{
+                        speedY-=2;
+                    }
+                    speedY = -speedY;
+                    speedX = -speedX;
                     break;
             }
             gp.obj[i] = null;
