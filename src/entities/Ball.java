@@ -94,32 +94,10 @@ public class Ball extends Entity{
             y = 48 -solidArea.y;
             speedY = -speedY;
         }
-        if (x + solidArea.x +solidArea.width >= gp.screenWidth - 48){
-            gp.playSE(3);
-            setDefaultValues();
-            gp.player.score +=1;
-            gp.compAI.setDefaultValues();
 
-        }
-        if (x + solidArea.x <= 48){
-            gp.playSE(3);
-            setDefaultValues();
-            gp.player2.score +=1;
-            gp.compAI.setDefaultValues();
+        checkPoint();
 
-        }
-
-        if (gp.player.score == 10){
-            gp.winner = "Player 1";
-            gp.gameFinished = true;
-        }
-        else if(gp.player2.score == 10){
-            if (Menu.playerOrComp == 1){
-                gp.winner = "Player 2";
-            }
-            else{gp.winner = "Computer";}
-            gp.gameFinished = true;
-        }
+        checkWin();
 
         if (speedX>10 ||speedX<-10){
             spriteCounter ++;
@@ -144,6 +122,37 @@ public class Ball extends Entity{
                 }
             }
             spriteCounter = 0;
+        }
+    }
+
+    public void checkPoint(){
+        if (x + solidArea.x +solidArea.width >= gp.screenWidth - 48){
+            gp.playSE(3);
+            setDefaultValues();
+            gp.player.score +=1;
+            gp.compAI.setDefaultValues();
+
+        }
+        if (x + solidArea.x <= 48){
+            gp.playSE(3);
+            setDefaultValues();
+            gp.player2.score +=1;
+            gp.compAI.setDefaultValues();
+
+        }
+    }
+
+    public void checkWin(){
+        if (gp.player.score == 10){
+            gp.winner = "Player 1";
+            gp.gameFinished = true;
+        }
+        else if(gp.player2.score == 10){
+            if (Menu.playerOrComp == 1){
+                gp.winner = "Player 2";
+            }
+            else{gp.winner = "Computer";}
+            gp.gameFinished = true;
         }
     }
 
