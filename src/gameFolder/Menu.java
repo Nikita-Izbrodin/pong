@@ -15,8 +15,6 @@ public class Menu implements ActionListener {
 
     public static boolean discoMode = false;
 
-    public static boolean serenadeMode = false;
-
     public static boolean musicToggle = true;
 
     public static String player1Colour = "/resources/player/paddleWhite.png";
@@ -108,6 +106,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(exitButton);
         menuFrame.remove(discoButton);
         menuFrame.remove(musicButton);
+
     }
 
     private void addMainButtons() {
