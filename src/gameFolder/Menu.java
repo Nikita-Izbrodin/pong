@@ -15,6 +15,8 @@ public class Menu implements ActionListener {
 
     public static boolean discoMode = false;
 
+    public static boolean serenadeMode = false;
+
     public static boolean musicToggle = true;
 
     public static String player1Colour = "/resources/player/paddleWhite.png";
@@ -71,6 +73,7 @@ public class Menu implements ActionListener {
 
     //SPECIAL BUTTONS
     ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/resources/buttonImages/discoBall.png");
+    ImageButtonTemplate serenadeButton = new ImageButtonTemplate(32, 0,32,32, "/resources/buttonImages/serenadeButton.png");
 
     ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/resources/buttonImages/musicButton.png");
 
@@ -106,6 +109,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(exitButton);
         menuFrame.remove(discoButton);
         menuFrame.remove(musicButton);
+        menuFrame.remove(serenadeButton);
 
     }
 
@@ -117,6 +121,7 @@ public class Menu implements ActionListener {
         menuFrame.add(exitButton);
         menuFrame.add(discoButton);
         menuFrame.add(musicButton);
+        menuFrame.add(serenadeButton);
     }
 
     public Menu() {
@@ -157,7 +162,7 @@ public class Menu implements ActionListener {
         orange2.addActionListener(this);
 
         discoButton.addActionListener(this);
-        discoButton.setBackground(Color.WHITE);
+        serenadeButton.addActionListener(this);
 
         // setting colours for buttons in skins
         white.setBackground(Color.WHITE);
@@ -252,19 +257,18 @@ public class Menu implements ActionListener {
         //
         // pvp OR pvc
         //
-        if (e.getSource() == discoButton) {
+        if (e.getSource() == discoButton){
+            if (serenadeMode)
+                serenadeMode = false;
+        discoMode = !discoMode;
+        }
+        if (e.getSource() == serenadeButton) {
             if (discoMode)
-            discoMode = false;
-            else{
-                discoMode = true;
-            }
+                discoMode = false;
+            serenadeMode = !serenadeMode;
         }
         if (e.getSource() == musicButton) {
-            if (musicToggle)
-                musicToggle = false;
-            else{
-                musicToggle = true;
-            }
+            musicToggle = !musicToggle;
         }
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();

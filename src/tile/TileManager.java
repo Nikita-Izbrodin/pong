@@ -37,6 +37,7 @@ public class TileManager {
         else if (Menu.globalDifficulty ==2){
             loadMap("/resources/maps/map01.txt");
         }
+        // add serenade mode maps
 
     }
 
