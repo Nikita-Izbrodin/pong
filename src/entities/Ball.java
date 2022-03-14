@@ -17,7 +17,7 @@ public class Ball extends Entity{
     public int variation;
     public int rallyCount;
 
-    public int lastCollision = 1;
+    public int lastCollision = 0;
     public int maxRally = 0;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -164,6 +164,7 @@ public class Ball extends Entity{
             speedX = -speedX;
             speedX += acceleration;
             rallyCount += 1;
+            lastCollision = 1;
 
             if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
@@ -181,6 +182,7 @@ public class Ball extends Entity{
             speedX += acceleration;
             speedX = -speedX;
             rallyCount += 1;
+            lastCollision = 2;
 
             if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
@@ -198,46 +200,49 @@ public class Ball extends Entity{
 
     public void pickUpObject(int i){
 
-        if(i!= 999){
+        if(i!= 999) {
             String objectName = gp.obj[i].name;
 
-            switch(objectName){
-                case"DirectionOrb":
-                    if (speedY>0){
+            switch (objectName) {
+                case "DirectionOrb":
+                    if (speedY > 0) {
                         speedY += 1;
-                }else{
-                        speedY-=1;
-                }
+                    } else {
+                        speedY -= 1;
+                    }
                     speedY = -speedY;
                     break;
-                case"DirectionOrb2":
-                    if (speedX>0){
+                case "DirectionOrb2":
+                    if (speedX > 0) {
                         speedX += 1;
-                    }else{
-                        speedX-=1;
+                    } else {
+                        speedX -= 1;
                     }
                     speedX = -speedX;
                     break;
-                case"ReverseOrb":
-                    if (speedX>0){
+                case "ReverseOrb":
+                    if (speedX > 0) {
                         speedX += 2;
-                    }else{
-                        speedX-=2;
+                    } else {
+                        speedX -= 2;
                     }
-                    if (speedY>0){
+                    if (speedY > 0) {
                         speedY += 2;
-                }else{
-                        speedY-=2;
-                }
+                    } else {
+                        speedY -= 2;
+                    }
                     speedY = -speedY;
                     speedX = -speedX;
                     break;
-                case"SpeedOrb":
-                    if (speedX>0){
+                case "SpeedOrb":
+                    if (speedX > 0) {
                         speedX += 3;
-                    }else{
-                        speedX-=3;
+                    } else {
+                        speedX -= 3;
                     }
+                    break;
+                case "ControlOrb":
+
                     break;
             }
             gp.obj[i] = null;
