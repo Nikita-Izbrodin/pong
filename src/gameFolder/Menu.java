@@ -15,6 +15,8 @@ public class Menu implements ActionListener {
 
     public static boolean discoMode = false;
 
+    public static boolean serenadeMode = false;
+
     public static boolean musicToggle = true;
 
     public static String player1Colour = "/resources/player/paddleWhite.png";
@@ -106,7 +108,6 @@ public class Menu implements ActionListener {
         menuFrame.remove(exitButton);
         menuFrame.remove(discoButton);
         menuFrame.remove(musicButton);
-
     }
 
     private void addMainButtons() {
@@ -157,7 +158,6 @@ public class Menu implements ActionListener {
         orange2.addActionListener(this);
 
         discoButton.addActionListener(this);
-        discoButton.setBackground(Color.WHITE);
 
         // setting colours for buttons in skins
         white.setBackground(Color.WHITE);
@@ -252,19 +252,11 @@ public class Menu implements ActionListener {
         //
         // pvp OR pvc
         //
-        if (e.getSource() == discoButton) {
-            if (discoMode)
-            discoMode = false;
-            else{
-                discoMode = true;
-            }
+        if (e.getSource() == discoButton){
+            discoMode = !discoMode;
         }
         if (e.getSource() == musicButton) {
-            if (musicToggle)
-                musicToggle = false;
-            else{
-                musicToggle = true;
-            }
+            musicToggle = !musicToggle;
         }
         if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
             menuFrame.dispose();
