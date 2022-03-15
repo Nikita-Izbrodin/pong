@@ -166,6 +166,7 @@ public class Ball extends Entity{
             rallyCount += 1;
             lastCollision = 1;
 
+            // changes angle based on the section the ball hits
             if(y+((solidArea.height/4)*3) > gp.player.y+(gp.player.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
             }else if(y+(solidArea.height/2) > gp.player.y+(gp.player.solidArea.height/2)){
@@ -184,6 +185,8 @@ public class Ball extends Entity{
             rallyCount += 1;
             lastCollision = 2;
 
+
+            // changes angle based on the section the ball hits
             if(y+((solidArea.height/4)*3) > gp.player2.y+(gp.player2.solidArea.height/6)*5 || y+((solidArea.height/4)*3) > gp.compAI.y+(gp.compAI.solidArea.height/6)*5) {
                 speedY = (rand.nextInt(variation) + 5);
             }else if(y+(solidArea.height/2) > gp.player2.y+(gp.player2.solidArea.height/2) || y+(solidArea.height/2) > gp.compAI.y+(gp.compAI.solidArea.height/4)*3){
