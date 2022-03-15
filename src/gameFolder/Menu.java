@@ -9,6 +9,8 @@ import logic.GamePanel;
 
 public class Menu implements ActionListener {
 
+    public JFrame window = new JFrame();
+
     public static int globalDifficulty;
 
     public static int playerOrComp;
@@ -79,7 +81,6 @@ public class Menu implements ActionListener {
     private void run(int dif, int vs) {
         globalDifficulty = dif;
         playerOrComp = vs;
-        JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Pong");

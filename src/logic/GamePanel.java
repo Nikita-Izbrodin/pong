@@ -26,12 +26,13 @@ public class GamePanel extends JPanel implements Runnable  {
     public static int screenHeight = tileSize * maxScreenRow;
     public boolean gameFinished = false;
     public String winner = "";
+    public boolean pauseState= false;
 
     //fps
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     P2KeyHandler keyG = new P2KeyHandler();
     Sound music = new Sound();
     Sound sEffect = new Sound();
@@ -113,18 +114,21 @@ public class GamePanel extends JPanel implements Runnable  {
     }
 
     public void update() {
-        Random rand = new Random();
-        if(rand.nextInt(100) == 1){
-            aSetter.setObject();
-        }
-        player.update();
-        if(Menu.playerOrComp == 1){
-            player2.update();
-        }else if(Menu.playerOrComp==2){
-            compAI.update();
+        if(!pauseState) {
+            Random rand = new Random();
+            if (rand.nextInt(100) == 1) {
+                aSetter.setObject();
+            }
+            player.update();
+            if (Menu.playerOrComp == 1) {
+                player2.update();
+            } else if (Menu.playerOrComp == 2) {
+                compAI.update();
+            }
+
+            ball.update();
         }
 
-        ball.update();
     }
 
 
@@ -166,4 +170,5 @@ public class GamePanel extends JPanel implements Runnable  {
         sEffect.setFile(i);
         sEffect.play();
     }
+
 }
