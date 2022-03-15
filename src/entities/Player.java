@@ -73,7 +73,7 @@ public class Player extends Entity{
 
         }
         reverseCounter++;
-        if (reverseCounter > 2000) {
+        if (reverseCounter > 500) {
             reverseCounter = 0;
             reverseControls = false;
         }

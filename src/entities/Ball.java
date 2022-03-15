@@ -243,9 +243,9 @@ public class Ball extends Entity{
                     break;
                 case "ControlOrb":
                     if (lastCollision == 1)
-                        gp.player.reverseControls = true;
-                    else if(lastCollision == 2)
                         gp.player2.reverseControls = true;
+                    else if(lastCollision == 2)
+                        gp.player.reverseControls = true;
                     break;
             }
             gp.obj[i] = null;
