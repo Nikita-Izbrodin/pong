@@ -14,6 +14,8 @@ public class Player2 extends Entity{
     GamePanel gp;
     P2KeyHandler keyH;
     public int score;
+    public boolean reverseControls = false;
+    int reverseCounter = 0;
     Menu mU;
 
     public Player2(GamePanel gp, P2KeyHandler keyH){
@@ -49,20 +51,32 @@ public class Player2 extends Entity{
     public void update(){
         if(keyH.upPressed || keyH.downPressed){
             if (keyH.upPressed) {
-                direction = "up";
+                if(reverseControls)
+                    direction = "down";
+                else
+                    direction = "up";
             } else if (keyH.downPressed) {
-                direction = "down";
+                if(reverseControls)
+                    direction = "up";
+                else
+                    direction = "down";
             }
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-            if(collisionOn == false){
+            if(!collisionOn){
                 switch(direction){
-                    case "up": y -= speedY;break;
-                    case"down": y += speedY;break;
+                    case "up":y -= speedY;break;
+                    case"down":y += speedY;break;
                 }
             }
+
+        }
+        reverseCounter++;
+        if (reverseCounter > 2000) {
+            reverseCounter = 0;
+            reverseControls = false;
         }
 
     }

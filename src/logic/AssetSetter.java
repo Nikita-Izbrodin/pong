@@ -15,7 +15,7 @@ public class AssetSetter {
     public void setObject(){
 
         Random rand = new Random();
-        int randomObject = rand.nextInt(3);
+        int randomObject = rand.nextInt(5);
         switch(randomObject){
             case 0:
                 if (gp.obj[0] == null) {
@@ -36,6 +36,20 @@ public class AssetSetter {
                     gp.obj[2] = new OBJ_ReverseOrb();
                     gp.obj[2].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
                     gp.obj[2].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
+                }
+                break;
+            case 3:
+                if (gp.obj[3] == null) {
+                    gp.obj[3] = new OBJ_SpeedOrb();
+                    gp.obj[3].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
+                    gp.obj[3].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
+                }
+                break;
+            case 4:
+                if (gp.obj[4] == null) {
+                    gp.obj[4] = new OBJ_ControlOrb();
+                    gp.obj[4].x = rand.nextInt(gp.screenWidth - 6 * gp.tileSize) + 3 * gp.tileSize;
+                    gp.obj[4].y = rand.nextInt(gp.screenHeight - 3 * gp.tileSize) + gp.tileSize;
                 }
                 break;
         }

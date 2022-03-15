@@ -14,8 +14,9 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
     public int score;
+    public boolean reverseControls = false;
+    int reverseCounter = 0;
     Menu mU;
-
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp=gp;
@@ -24,7 +25,6 @@ public class Player extends Entity{
         solidArea = new Rectangle(18, 0, 15,142);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
 
         setDefaultValues();
         getPlayerImage();
@@ -50,20 +50,32 @@ public class Player extends Entity{
     public void update(){
         if(keyH.upPressed || keyH.downPressed){
             if (keyH.upPressed) {
-                direction = "up";
+                if(reverseControls)
+                    direction = "down";
+                else
+                    direction = "up";
             } else if (keyH.downPressed) {
-                direction = "down";
+                if(reverseControls)
+                    direction = "up";
+                else
+                    direction = "down";
             }
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-            if(collisionOn == false){
+            if(!collisionOn){
                 switch(direction){
-                    case "up": y -= speedY;break;
-                    case"down": y += speedY;break;
+                    case "up":y -= speedY;break;
+                    case"down":y += speedY;break;
                 }
             }
+
+        }
+        reverseCounter++;
+        if (reverseCounter > 2000) {
+            reverseCounter = 0;
+            reverseControls = false;
         }
 
     }
