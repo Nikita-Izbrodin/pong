@@ -1,5 +1,7 @@
 package logic;
 
+import gameFolder.Menu;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,9 +10,8 @@ public class KeyHandler implements KeyListener{
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
-    public KeyHandler (GamePanel gp){
-        this.gp = gp;
-    }
+    public KeyHandler (GamePanel gp){this.gp = gp;}
+
     @Override
     public void keyTyped(KeyEvent keyEvent) {
 
@@ -30,8 +31,12 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_D){
             rightPressed = true;
         }
-        if(code == KeyEvent.VK_ESCAPE){
+        if(code == KeyEvent.VK_P){
             gp.pauseState = !gp.pauseState;
+        }
+        if(code == KeyEvent.VK_ESCAPE){
+            new Menu();
+            gp.gameDelete();
         }
     }
     @Override
@@ -48,8 +53,6 @@ public class KeyHandler implements KeyListener{
         }
         if(code == KeyEvent.VK_D){
             rightPressed = false;
-        }
-        if(code == KeyEvent.VK_ESCAPE){
         }
     }
 }

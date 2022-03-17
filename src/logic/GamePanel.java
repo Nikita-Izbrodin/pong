@@ -1,6 +1,6 @@
 package logic;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -63,11 +63,15 @@ public class GamePanel extends JPanel implements Runnable  {
         this.setFocusable(true);
     }
 
-
     public void setupGame(){
         if (Menu.musicToggle){
             playMusic(0);
         }
+    }
+
+    public void gameDelete(){
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
     }
 
     public void startGameThread() {
