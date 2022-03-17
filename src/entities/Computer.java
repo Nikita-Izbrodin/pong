@@ -26,7 +26,7 @@ public class Computer extends Entity{
     }
 
     public void setDefaultValues(){
-        x = gp.tileSize*(GamePanel.maxScreenCol-2);
+        x = gp.tileSize*(gp.maxScreenCol-2);
         y = gp.screenHeight/2 - solidArea.height/2;
         if(Menu.globalDifficulty == 2){
             speedY = 8;

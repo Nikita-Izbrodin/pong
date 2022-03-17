@@ -21,14 +21,14 @@ public class TileManager {
     public TileManager(GamePanel gp){
 
         if (Menu.globalDifficulty == 2) {
-            GamePanel.maxScreenCol = 22;
-            GamePanel.maxScreenRow = 18;
+            gp.maxScreenCol = 22;
+            gp.maxScreenRow = 18;
         }
         mapCounter = 1;
         mapNum = 1;
         this.gp = gp;
         tile = new Tile[15];
-        mapTileNum = new int[(GamePanel.maxScreenCol + 2)][(GamePanel.maxScreenRow + 2)];
+        mapTileNum = new int[(gp.maxScreenCol + 2)][(gp.maxScreenRow + 2)];
         getTileImage();
 
         if(Menu.globalDifficulty ==1){

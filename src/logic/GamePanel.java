@@ -18,12 +18,12 @@ public class GamePanel extends JPanel implements Runnable  {
     static final int originalTileSize = 16;
     static final int scale = 3;
 
-    public static final int tileSize = originalTileSize * scale;
+    public final int tileSize = originalTileSize * scale;
 
-    public static int maxScreenCol = 18;
-    public static int maxScreenRow = 14;
-    public static int screenWidth = tileSize * maxScreenCol;
-    public static int screenHeight = tileSize * maxScreenRow;
+    public int maxScreenCol = 18; // were all static, they were made static to fix a problem
+    public int maxScreenRow = 14; // were all static, they were made static to fix a problem
+    public int screenWidth = tileSize * maxScreenCol; // were all static, they were made static to fix a problem
+    public int screenHeight = tileSize * maxScreenRow; // were all static, they were made static to fix a problem
     public boolean gameFinished = false;
     public String winner = "";
     public boolean pauseState= false;
@@ -49,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable  {
 
     public GamePanel() {
         if (Menu.globalDifficulty == 2) {
-            GamePanel.maxScreenCol = 22;
-            GamePanel.maxScreenRow = 18;
+            maxScreenCol = 22;
+            maxScreenRow = 18;
             screenWidth = tileSize * maxScreenCol;
             screenHeight = tileSize * maxScreenRow;
         }

@@ -13,6 +13,7 @@ public class UI {
 
     public boolean messageOn = true;
     public String message = "";
+    public int messageCounter = 0;
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -24,6 +25,12 @@ public class UI {
         arial_30 = new Font("Arial", Font.PLAIN, 30);
         arial_80B = new Font("Arial", Font.BOLD, 80);
 
+    }
+
+    public void showMessage(String text){
+
+        message= text;
+        messageOn = true;
     }
 
     public void draw(Graphics2D g2) {
@@ -96,6 +103,19 @@ public class UI {
             g2.drawString("Ball x speed: " + dFormat1.format(Math.sqrt(gp.ball.speedX * gp.ball.speedX)), gp.tileSize * (gp.maxScreenCol - 5), gp.screenHeight - 10);
 
             //g2.drawString("Max rally: " + gp.ball.maxRally, gp.tileSize, gp.screenHeight - 10);
+
+            if (messageOn) {
+                g2.setFont(g2.getFont().deriveFont(30F));
+                textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+                g2.drawString(message, gp.screenWidth / 2 - textLength / 2, gp.tileSize * 5);
+
+                messageCounter++;
+
+                if (messageCounter > 120) {
+                    messageCounter = 0;
+                    messageOn = false;
+                }
+            }
 
 
         }

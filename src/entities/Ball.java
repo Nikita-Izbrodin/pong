@@ -1,6 +1,7 @@
 package entities;
 
 import gameFolder.Menu;
+import gameFolder.UI;
 import logic.GamePanel;
 
 import java.awt.*;
@@ -12,6 +13,7 @@ import javax.imageio.*;
 
 public class Ball extends Entity{
     GamePanel gp;
+    UI ui;
 
     public double acceleration;
     public int variation;
@@ -86,7 +88,7 @@ public class Ball extends Entity{
         }
 
         if(y + solidArea.y + solidArea.height >= gp.screenHeight - 48){
-            y = gp.screenHeight -(solidArea.height +solidArea.y + GamePanel.tileSize);
+            y = gp.screenHeight -(solidArea.height +solidArea.y + gp.tileSize);
             speedY = -speedY;
 
         }
@@ -131,6 +133,7 @@ public class Ball extends Entity{
             setDefaultValues();
             gp.player.score +=1;
             gp.compAI.setDefaultValues();
+            ui.showMessage("Player 1 scored");
 
         }
         if (x + solidArea.x <= 48){
@@ -138,6 +141,7 @@ public class Ball extends Entity{
             setDefaultValues();
             gp.player2.score +=1;
             gp.compAI.setDefaultValues();
+            ui.showMessage("Player 2 scored");
 
         }
     }
@@ -178,7 +182,7 @@ public class Ball extends Entity{
             }
 
         }else if (collisionValue == 902){
-            x = gp.tileSize*(GamePanel.maxScreenCol-2) - gp.ball.solidArea.width;
+            x = gp.tileSize*(gp.maxScreenCol-2) - gp.ball.solidArea.width;
 
             speedX += acceleration;
             speedX = -speedX;
