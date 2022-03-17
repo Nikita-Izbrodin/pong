@@ -13,7 +13,6 @@ import javax.imageio.*;
 
 public class Ball extends Entity{
     GamePanel gp;
-    UI ui;
 
     public double acceleration;
     public int variation;
@@ -133,7 +132,8 @@ public class Ball extends Entity{
             setDefaultValues();
             gp.player.score +=1;
             gp.compAI.setDefaultValues();
-            ui.showMessage("Player 1 scored");
+            gp.ui.showMessage("Player 1 scored");
+
 
         }
         if (x + solidArea.x <= 48){
@@ -141,7 +141,7 @@ public class Ball extends Entity{
             setDefaultValues();
             gp.player2.score +=1;
             gp.compAI.setDefaultValues();
-            ui.showMessage("Player 2 scored");
+            gp.ui.showMessage("Player 2 scored");
 
         }
     }

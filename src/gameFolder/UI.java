@@ -11,7 +11,7 @@ public class UI {
 
     Font arial_30, arial_80B;
 
-    public boolean messageOn = true;
+    public boolean messageOn = false;
     public String message = "";
     public int messageCounter = 0;
 
@@ -105,9 +105,10 @@ public class UI {
             //g2.drawString("Max rally: " + gp.ball.maxRally, gp.tileSize, gp.screenHeight - 10);
 
             if (messageOn) {
-                g2.setFont(g2.getFont().deriveFont(30F));
+                g2.setFont(arial_30);
+                g2.setColor(Color.WHITE);
                 textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-                g2.drawString(message, gp.screenWidth / 2 - textLength / 2, gp.tileSize * 5);
+                g2.drawString(message, gp.screenWidth / 2 - textLength / 2, gp.tileSize * 2);
 
                 messageCounter++;
 
