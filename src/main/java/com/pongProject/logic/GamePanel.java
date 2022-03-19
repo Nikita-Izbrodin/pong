@@ -71,6 +71,8 @@ public class GamePanel extends JPanel implements Runnable  {
 
     public void gameDelete(){
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        stopMusic();
+        gameThread = null;
         frame.dispose();
     }
 
