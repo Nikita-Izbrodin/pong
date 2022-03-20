@@ -78,11 +78,9 @@ public class GamePanel extends JPanel implements Runnable  {
         frame.dispose();
 
         PongDB db = new PongDB();
-        if (Menu.playerOrComp == 2) {
-            finalScore = player.score - player2.score;
-        }else{
-            finalScore = 10;
-        }
+
+        finalScore = player.score;
+
         db.updateHighScore(Menu.username, finalScore);
         db.updateHighestRally(Menu.username, ball.maxRally);
     }
