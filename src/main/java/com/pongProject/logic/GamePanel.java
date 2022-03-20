@@ -14,8 +14,10 @@ import com.pongProject.gameFolder.Sound;
 import com.pongProject.gameFolder.UI;
 import com.pongProject.object.SuperObject;
 import com.pongProject.tile.TileManager;
+import com.pongProject.gameFolder.Menu;
 
 public class GamePanel extends JPanel implements Runnable  {
+
     static final int originalTileSize = 16;
     static final int scale = 3;
 
@@ -34,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable  {
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    KeyHandler keyH;
     P2KeyHandler keyG = new P2KeyHandler();
     Sound music = new Sound();
     Sound sEffect = new Sound();
@@ -42,14 +44,23 @@ public class GamePanel extends JPanel implements Runnable  {
     public Thread gameThread;
     public UI ui = new UI(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public Player player = new Player(this, keyH);
-    public Player2 player2 = new Player2(this, keyG);
+    public Player player;
+    public Player2 player2;
     public Computer compAI = new Computer(this);
     public Ball ball = new Ball(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public SuperObject obj[] = new SuperObject[10];
 
-    public GamePanel() {
+    private PongDB db;
+
+    public GamePanel(PongDB pongDB) {
+
+        this.db = pongDB;
+        this.keyH = new KeyHandler(this, pongDB);
+
+        this.player = new Player(this, keyH);
+        this.player2 = new Player2(this, keyG);
+
         if (Menu.globalDifficulty == 2) {
             maxScreenCol = 22;
             maxScreenRow = 18;
@@ -76,8 +87,6 @@ public class GamePanel extends JPanel implements Runnable  {
         stopMusic();
         gameThread = null;
         frame.dispose();
-
-        PongDB db = new PongDB();
 
         finalScore = player.score;
 
@@ -180,7 +189,9 @@ public class GamePanel extends JPanel implements Runnable  {
         music.play();
         music.loop();
     }
-    public void stopMusic(){music.stop();}
+    public void stopMusic(){
+        music.stop();
+    }
     public void playSE(int i){
         sEffect.setFile(i);
         sEffect.play();

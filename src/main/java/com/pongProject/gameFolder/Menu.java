@@ -15,7 +15,7 @@ public class Menu implements ActionListener {
 
     public static  String username;
 
-    public PongDB db = new PongDB();
+    private PongDB db;
 
     public JFrame window = new JFrame();
 
@@ -84,8 +84,8 @@ public class Menu implements ActionListener {
     SkinSelectTemplate orange2 = new SkinSelectTemplate(557, 425);
 
     //SPECIAL BUTTONS
-    ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/com/pongProject/buttonImages/discoBall.png");
-    ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/com/pongProject/buttonImages/musicButton.png");
+    public ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/com/pongProject/buttonImages/discoBallOff.png");
+    public ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/com/pongProject/buttonImages/musicOnButton.png");
 
     public JFrame menuFrame;
 
@@ -96,7 +96,7 @@ public class Menu implements ActionListener {
         window.setResizable(false);
         window.setTitle("Pong");
 
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(db);
         window.add(gamePanel);
 
         window.pack();
@@ -131,7 +131,28 @@ public class Menu implements ActionListener {
         menuFrame.add(musicButton);
     } // adds the main menu buttons to main menu
 
-    public Menu(String importedUsername) {
+    public void changeMusicButton(boolean isOn){
+        if (isOn) {
+            musicButton.setButtonImage("/com/pongProject/buttonImages/musicOnButton.png");
+        }
+        else {
+            musicButton.setButtonImage("/com/pongProject/buttonImages/musicOffButton.png");
+        }
+    }
+
+    public void changeDiscoButton(boolean isOn){
+        if (isOn) {
+            discoButton.setButtonImage("/com/pongProject/buttonImages/discoBallOn.png");
+        }
+        else {
+            discoButton.setButtonImage("/com/pongProject/buttonImages/discoBallOff.png");
+        }
+    }
+
+    public Menu(String importedUsername, PongDB pongDB) {
+
+        this.db = pongDB;
+
         username = importedUsername;
         // allows button to do something when pressed
 
@@ -141,6 +162,7 @@ public class Menu implements ActionListener {
         leaderBoardButton.addActionListener(this);
         exitButton.addActionListener(e -> menuFrame.dispose());
         musicButton.addActionListener(this);
+        discoButton.addActionListener(this);
 
         pvcNormalButton.addActionListener(this);
         pvcHardButton.addActionListener(this);
@@ -168,8 +190,6 @@ public class Menu implements ActionListener {
         magenta2.addActionListener(this);
         red2.addActionListener(this);
         orange2.addActionListener(this);
-
-        discoButton.addActionListener(this);
 
         // setting colours for buttons in skins
         white.setBackground(Color.WHITE);
@@ -289,12 +309,6 @@ public class Menu implements ActionListener {
         //
         // pvp OR pvc
         //
-        if (e.getSource() == discoButton){
-            discoMode = !discoMode;
-        }
-        if (e.getSource() == musicButton) {
-            musicToggle = !musicToggle;
-        }
         if (e.getSource() == pvcNormalButton) {
             menuFrame.dispose();
             run(1, 2);
@@ -401,6 +415,18 @@ public class Menu implements ActionListener {
         }
         if (e.getSource() == orange2) {
             player2Colour = "/com/pongProject/player/paddleOrange.png";
+        }
+        //
+        // special buttons
+        //
+        if (e.getSource() == discoButton){
+            discoMode = !discoMode;
+            changeDiscoButton(discoMode);
+        }
+        if (e.getSource() == musicButton) {
+            musicToggle = !musicToggle;
+            changeMusicButton(musicToggle);
+
         }
     } // if specific button is pressed, executes contents of if statement
 }

@@ -7,8 +7,13 @@ import javax.swing.*;
 
 public class UserAccess {
 
-    public UserAccess() {
+    private PongDB db;
 
+    public UserAccess(PongDB pongDB) {
+        this.db = pongDB;
+    } // asks user if they want to log in, sign up, or play as guest
+
+    public void run() {
         ImageIcon icon = new ImageIcon("pong_icon_smaller.png"); // this is the smaller pong icon, smaller because it is displayed on JOptionpane
         String[] responses = {"Log In", "Sign Up", "Play as guest"};
 
@@ -31,12 +36,12 @@ public class UserAccess {
         }
         if (loginWindow == 2) { // if user chose "Play as guest"
             JOptionPane.showMessageDialog(null, "You are playing as a guest,\nyour scores/rallies will be saved to the Guest account.");
-            new Menu("Guest");
+            new Menu("Guest", db);
         }
-    } // asks user if they want to log in, sign up, or play as guest
+    }
 
-    static void signUp() {
-        PongDB db = new PongDB();
+    private void signUp() {
+
         ImageIcon pfpIcon = new ImageIcon("pfp.jpg");
         boolean check = true;
 
@@ -86,11 +91,11 @@ public class UserAccess {
                 if (db.createUser(username,password)) {
                     JOptionPane.showMessageDialog(null, "Account created successfully!\nUsername: " + username, "Sign Up", JOptionPane.PLAIN_MESSAGE);
                     check = false;
-                    new Menu(username);
+                    new Menu(username, db);
                 } else {
                     JOptionPane.showMessageDialog(null, "Account not created.\nUsername may already be taken.", "Sign Up", JOptionPane.WARNING_MESSAGE);
                     check = false;
-                    new UserAccess();
+                    run();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Passwords are not the same", "Sign Up", JOptionPane.WARNING_MESSAGE);
@@ -98,8 +103,7 @@ public class UserAccess {
         }
     }
 
-    static void logIn() {
-        PongDB db = new PongDB();
+    private void logIn() {
         ImageIcon pfpIcon = new ImageIcon("pfp.jpg");
 
         String username = (String) JOptionPane.showInputDialog(
@@ -123,7 +127,7 @@ public class UserAccess {
         );
 
         if (db.loginUser(username, password)) {
-            new Menu(username);
+            new Menu(username, db);
         }
         else {
             JOptionPane.showMessageDialog(
@@ -132,7 +136,7 @@ public class UserAccess {
                     "Log In",
                     JOptionPane.WARNING_MESSAGE
             );
-            new UserAccess();
+            run();
         }
     }
 }

@@ -1,16 +1,23 @@
 package com.pongProject.logic;
 
+import com.pongProject.database.PongDB;
 import com.pongProject.gameFolder.Menu;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
+
+    private PongDB db;
+
     GamePanel gp;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
-    public KeyHandler (GamePanel gp){this.gp = gp;}
+    public KeyHandler (GamePanel gp, PongDB pongDB){
+        this.gp = gp;
+        this.db = pongDB;
+    }
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {
@@ -35,8 +42,8 @@ public class KeyHandler implements KeyListener{
             gp.pauseState = !gp.pauseState;
         }
         if(code == KeyEvent.VK_ESCAPE){
-            new Menu(Menu.username);
             gp.gameDelete();
+            new Menu(Menu.username, db);
         }
     }
     @Override
