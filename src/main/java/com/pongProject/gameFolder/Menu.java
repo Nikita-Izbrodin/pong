@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import com.pongProject.database.PongDB;
 import com.pongProject.logic.GamePanel;
@@ -83,9 +81,17 @@ public class Menu implements ActionListener {
     SkinSelectTemplate red2 = new SkinSelectTemplate(457, 425);
     SkinSelectTemplate orange2 = new SkinSelectTemplate(557, 425);
 
+    // orb explain buttons
+    OrbButtonTemplate controlOrbButton = new OrbButtonTemplate(25, "Reverses up/down controls of next player", "/com/pongProject/objects/controlOrb.png");
+    OrbButtonTemplate directionOrbButton = new OrbButtonTemplate(125, "Reverses Y direction of ball", "/com/pongProject/objects/directionOrb.png");
+    OrbButtonTemplate directionOrb2Button = new OrbButtonTemplate(225, "Reverses X direction of ball", "/com/pongProject/objects/directionOrb2.png");
+    OrbButtonTemplate reverseOrbButton = new OrbButtonTemplate(325, "Sends the ball back the same direction", "/com/pongProject/objects/reverseOrb.png");
+    OrbButtonTemplate speedOrbButton = new OrbButtonTemplate(425, "Increases the speed of the ball", "/com/pongProject/objects/speedOrb.png");
+
     //SPECIAL BUTTONS
     public ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/com/pongProject/buttonImages/discoBallOff.png");
     public ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/com/pongProject/buttonImages/musicOnButton.png");
+    public ImageButtonTemplate orbExplainButton = new ImageButtonTemplate(214, 475, 50, 50, "/com/pongProject/objects/explainOrb.png");
 
     public JFrame menuFrame;
 
@@ -118,6 +124,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(exitButton);
         menuFrame.remove(discoButton);
         menuFrame.remove(musicButton);
+        menuFrame.remove(orbExplainButton);
 
     } // removes the buttons on the main menu
 
@@ -129,6 +136,7 @@ public class Menu implements ActionListener {
         menuFrame.add(exitButton);
         menuFrame.add(discoButton);
         menuFrame.add(musicButton);
+        menuFrame.add(orbExplainButton);
     } // adds the main menu buttons to main menu
 
     public void changeMusicButton(boolean isOn){
@@ -163,6 +171,7 @@ public class Menu implements ActionListener {
         exitButton.addActionListener(e -> menuFrame.dispose());
         musicButton.addActionListener(this);
         discoButton.addActionListener(this);
+        orbExplainButton.addActionListener(this);
 
         pvcNormalButton.addActionListener(this);
         pvcHardButton.addActionListener(this);
@@ -353,6 +362,12 @@ public class Menu implements ActionListener {
             menuFrame.remove(red2);
             menuFrame.remove(orange2);
 
+            menuFrame.remove(controlOrbButton);
+            menuFrame.remove(directionOrbButton);
+            menuFrame.remove(directionOrb2Button);
+            menuFrame.remove(reverseOrbButton);
+            menuFrame.remove(speedOrbButton);
+
             menuFrame.remove(backButton);
             menuFrame.remove(backButton2);
 
@@ -426,7 +441,17 @@ public class Menu implements ActionListener {
         if (e.getSource() == musicButton) {
             musicToggle = !musicToggle;
             changeMusicButton(musicToggle);
+        }
+        if (e.getSource() == orbExplainButton) {
+            removeMainButtons();
 
+            menuFrame.add(backButton2);
+            menuFrame.add(controlOrbButton);
+            menuFrame.add(directionOrbButton);
+            menuFrame.add(directionOrb2Button);
+            menuFrame.add(reverseOrbButton);
+            menuFrame.add(speedOrbButton);
+            menuFrame.repaint();
         }
     } // if specific button is pressed, executes contents of if statement
 }
