@@ -13,7 +13,7 @@ import com.pongProject.logic.GamePanel;
 
 public class Menu implements ActionListener {
 
-    public String username;
+    public static  String username;
 
     public PongDB db = new PongDB();
 
