@@ -34,6 +34,9 @@ public class Player2 extends Entity{
         x = gp.tileSize*(gp.maxScreenCol-2);
         y = gp.screenHeight/2 - solidArea.height/2;
         speedY=8;
+        if (Menu.globalDifficulty == 2) {
+            speedY=10;
+        }
         speedX = 0;
         direction = "down";
         score = 0;
