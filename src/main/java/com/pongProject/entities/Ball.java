@@ -146,18 +146,15 @@ public class Ball extends Entity{
     }
 
     public void checkWin(){
-        if (gp.player.score == 10){
-            gp.winner = "Player 1";
-            gp.gameFinished = true;
-        }
-        else if(gp.player2.score == 10){
-            if (Menu.playerOrComp == 1){
-                gp.winner = "Player 2";
+            if (Menu.playerOrComp == 2){
+                if(gp.player2.score-gp.player.score > 30){
+                    gp.winner = "Computer";
+                    gp.gameFinished = true;
+                    gp.stopMusic();
+                }
             }
-            else{gp.winner = "Computer";}
-            gp.gameFinished = true;
         }
-    }
+
 
     public void paddleCollision(int collisionValue){
         Random rand = new Random();
