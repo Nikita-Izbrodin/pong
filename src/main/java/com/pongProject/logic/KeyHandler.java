@@ -35,7 +35,7 @@ public class KeyHandler implements KeyListener{
             gp.pauseState = !gp.pauseState;
         }
         if(code == KeyEvent.VK_ESCAPE){
-            new Menu(username);
+            new Menu(Menu.username);
             gp.gameDelete();
         }
     }

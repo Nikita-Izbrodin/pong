@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable  {
     public boolean gameFinished = false;
     public String winner = "";
     public boolean pauseState= false;
+    public int finalScore;
 
     //fps
     int FPS = 60;
@@ -77,8 +78,13 @@ public class GamePanel extends JPanel implements Runnable  {
         frame.dispose();
 
         PongDB db = new PongDB();
-        db.updateHighScore(username, lastScore);
-        db.updateHighestRally(username, lastRally);
+        if (Menu.playerOrComp == 2) {
+            finalScore = player.score - player2.score;
+        }else{
+            finalScore = 10;
+        }
+        db.updateHighScore(Menu.username, finalScore);
+        db.updateHighestRally(Menu.username, ball.maxRally);
     }
 
     public void startGameThread() {
