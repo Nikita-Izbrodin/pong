@@ -3,7 +3,7 @@ package com.pongProject.database;
 import java.sql.*;
 
 public class PongDB {
-//C:\Users\nizbr\OneDrive\Documents\
+
     private final String dbFilePath = "pongDB.accdb";
     private final String dbConnectionUrl = "jdbc:ucanaccess://" + dbFilePath;
 

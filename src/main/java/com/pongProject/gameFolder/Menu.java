@@ -1,14 +1,19 @@
 package com.pongProject.gameFolder;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 import com.pongProject.database.PongDB;
 import com.pongProject.logic.GamePanel;
 
 public class Menu implements ActionListener {
+
+    public PongDB db = new PongDB();
 
     public JFrame window = new JFrame();
 
@@ -25,9 +30,9 @@ public class Menu implements ActionListener {
 
     // buttons are initialised outside of constructor, so they are global and actionListener can work as intended
 
-    // Player VS Computer
+    // Player VS Computer (PVC)
     ButtonTemplate pvcButton = new ButtonTemplate(75, "Player VS Computer");
-    // Player VS Player
+    // Player VS Player (PVP)
     ButtonTemplate pvpButton = new ButtonTemplate(175, "Player VS Player");
     // Skins
     ButtonTemplate skinsButton = new ButtonTemplate(275, "Skins");
@@ -46,9 +51,13 @@ public class Menu implements ActionListener {
     // PVP Hard
     ButtonTemplate pvpHardButton = new ButtonTemplate(175, "P VS P - Hard");
 
-    // PVC or PVP Back (button)
+    // back buttons (backButton1 is placed near the centre of the frame, backButton2 is placed near the bottom of the frame)
     ButtonTemplate backButton = new ButtonTemplate(275, "Back");
     ButtonTemplate backButton2 = new ButtonTemplate(525, "Back");
+
+    // Leaderboard panels
+    LeaderboardPanelTemplate scoresPanel = new LeaderboardPanelTemplate(50, 50);
+    LeaderboardPanelTemplate ralliesPanel = new LeaderboardPanelTemplate(432, 50);
 
     // initialising skin select buttons
     ButtonTemplate player1 = new ButtonTemplate(10, "Player 1:");
@@ -74,7 +83,6 @@ public class Menu implements ActionListener {
 
     //SPECIAL BUTTONS
     ImageButtonTemplate discoButton = new ImageButtonTemplate(0, 0,32,32, "/com/pongProject/buttonImages/discoBall.png");
-
     ImageButtonTemplate musicButton = new ImageButtonTemplate( 600,475,50,50, "/com/pongProject/buttonImages/musicButton.png");
 
     public JFrame menuFrame;
@@ -98,7 +106,7 @@ public class Menu implements ActionListener {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
-    }
+    } // when the game itself is run
 
     private void removeMainButtons() {
         menuFrame.remove(pvcButton);
@@ -109,7 +117,7 @@ public class Menu implements ActionListener {
         menuFrame.remove(discoButton);
         menuFrame.remove(musicButton);
 
-    }
+    } // removes the buttons on the main menu
 
     private void addMainButtons() {
         menuFrame.add(pvcButton);
@@ -119,7 +127,7 @@ public class Menu implements ActionListener {
         menuFrame.add(exitButton);
         menuFrame.add(discoButton);
         menuFrame.add(musicButton);
-    }
+    } // adds the main menu buttons to main menu
 
     public Menu() {
         // allows button to do something when pressed
@@ -197,14 +205,14 @@ public class Menu implements ActionListener {
         addMainButtons();
 
         menuFrame.setVisible(true);
-    }
+    } // creates the menu & adds the main menu buttons, adds addActionListener (allows buttons to do something when pressed)
 
     @Override
     public void actionPerformed(ActionEvent e) {
         //
         // main menu
         //
-        if (e.getSource() == pvcButton) { // when player vs computer pressed
+        if (e.getSource() == pvcButton) {
             removeMainButtons();
             menuFrame.add(pvcNormalButton);
             menuFrame.add(pvcHardButton);
@@ -212,7 +220,7 @@ public class Menu implements ActionListener {
 
             menuFrame.repaint();
         }
-        if (e.getSource() == pvpButton) { // when player vs player pressed
+        if (e.getSource() == pvpButton) {
             removeMainButtons();
             menuFrame.add(pvpNormalButton);
             menuFrame.add(pvpHardButton);
@@ -220,7 +228,7 @@ public class Menu implements ActionListener {
 
             menuFrame.repaint();
         }
-        if (e.getSource() == skinsButton) { // when skins pressed
+        if (e.getSource() == skinsButton) {
             removeMainButtons();
             menuFrame.add(player1);
             menuFrame.add(player2);
@@ -247,10 +255,33 @@ public class Menu implements ActionListener {
 
             menuFrame.repaint();
         }
-        if (e.getSource() == leaderBoardButton) { // when leaderboard pressed
-            // put code here
-            PongDB db = new PongDB();
-            System.out.println(db.getTopScores(2));
+        if (e.getSource() == leaderBoardButton) {
+
+            removeMainButtons();
+            menuFrame.add(backButton2);
+
+            JTextArea scoresLabel = new JTextArea();
+            scoresLabel.setEditable(false);
+            scoresLabel.setBounds(0, 0, scoresPanel.getWidth(), scoresPanel.getHeight());
+
+            String topScoresText = db.getTopScores(10);
+            scoresLabel.setText("Top 10 Scores:\n"+topScoresText);
+            scoresLabel.setFont(new Font("Comic Sans", Font.BOLD, 30));
+            scoresPanel.add(scoresLabel);
+
+            JTextArea ralliesLabel = new JTextArea();
+            ralliesLabel.setEditable(false);
+            ralliesLabel.setBounds(0, 0, ralliesPanel.getWidth(), ralliesPanel.getHeight());
+
+            String topRalliesText = db.getTopRallies(10);
+            ralliesLabel.setText("Top 10 Rallies:\n"+topRalliesText);
+            ralliesLabel.setFont(new Font("Comic Sans", Font.BOLD, 30));
+            ralliesPanel.add(ralliesLabel);
+
+            menuFrame.add(scoresPanel);
+            menuFrame.add(ralliesPanel);
+
+            menuFrame.repaint();
         }
         //
         // pvp OR pvc
@@ -261,23 +292,23 @@ public class Menu implements ActionListener {
         if (e.getSource() == musicButton) {
             musicToggle = !musicToggle;
         }
-        if (e.getSource() == pvcNormalButton) { // when pvc normal is pressed
+        if (e.getSource() == pvcNormalButton) {
             menuFrame.dispose();
             run(1, 2);
         }
-        if (e.getSource() == pvcHardButton) { // when pvc hard is pressed
+        if (e.getSource() == pvcHardButton) {
             menuFrame.dispose();
             run(2, 2);
         }
-        if (e.getSource() == pvpNormalButton) { // when pvp normal is pressed
+        if (e.getSource() == pvpNormalButton) {
             menuFrame.dispose();
             run(1, 1);
         }
-        if (e.getSource() == pvpHardButton) { // when pvp hard is pressed
+        if (e.getSource() == pvpHardButton) {
             menuFrame.dispose();
             run(2, 1);
         }
-        if (e.getSource() == backButton || e.getSource() == backButton2) { // when either back button is pressed
+        if (e.getSource() == backButton || e.getSource() == backButton2) {
             menuFrame.remove(pvpNormalButton);
             menuFrame.remove(pvpHardButton);
 
@@ -308,6 +339,9 @@ public class Menu implements ActionListener {
             menuFrame.remove(backButton);
             menuFrame.remove(backButton2);
 
+            menuFrame.remove(scoresPanel);
+            menuFrame.remove(ralliesPanel);
+
             addMainButtons();
 
             menuFrame.repaint();
@@ -315,55 +349,55 @@ public class Menu implements ActionListener {
         //
         // skins
         //
-        if (e.getSource() == white) { // when white pressed
+        // when player1 colour pressed
+        if (e.getSource() == white) {
             player1Colour = "/com/pongProject/player/paddleWhite.png";
         }
-        if (e.getSource() == cyan) { // when cyan pressed
+        if (e.getSource() == cyan) {
             player1Colour = "/com/pongProject/player/paddleCyan.png";
         }
-        if (e.getSource() == green) { // when green pressed
+        if (e.getSource() == green) {
             player1Colour = "/com/pongProject/player/paddleGreen.png";
         }
-        if (e.getSource() == pink) { // when pink pressed
+        if (e.getSource() == pink) {
             player1Colour = "/com/pongProject/player/paddlePink.png";
         }
-        if (e.getSource() == yellow) { // when yellow pressed
+        if (e.getSource() == yellow) {
             player1Colour = "/com/pongProject/player/paddleYellow.png";
         }
-        if (e.getSource() == magenta) { // when magenta pressed
+        if (e.getSource() == magenta) {
             player1Colour = "/com/pongProject/player/paddleMagenta.png";
         }
-        if (e.getSource() == red) { // when red pressed
+        if (e.getSource() == red) {
             player1Colour = "/com/pongProject/player/paddleRed.png";
         }
-        if (e.getSource() == orange) { // when orange pressed
+        if (e.getSource() == orange) {
             player1Colour = "/com/pongProject/player/paddleOrange.png";
         }
-
-
-        if (e.getSource() == white2) { // when white pressed
+        // when player2 colour pressed
+        if (e.getSource() == white2) {
             player2Colour = "/com/pongProject/player/paddleWhite.png";
         }
-        if (e.getSource() == cyan2) { // when cyan pressed
+        if (e.getSource() == cyan2) {
             player2Colour = "/com/pongProject/player/paddleCyan.png";
         }
-        if (e.getSource() == green2) { // when green pressed
+        if (e.getSource() == green2) {
             player2Colour = "/com/pongProject/player/paddleGreen.png";
         }
-        if (e.getSource() == pink2) { // when pink pressed
+        if (e.getSource() == pink2) {
             player2Colour = "/com/pongProject/player/paddlePink.png";
         }
-        if (e.getSource() == yellow2) { // when yellow pressed
+        if (e.getSource() == yellow2) {
             player2Colour = "/com/pongProject/player/paddleYellow.png";
         }
-        if (e.getSource() == magenta2) { // when magenta pressed
+        if (e.getSource() == magenta2) {
             player2Colour = "/com/pongProject/player/paddleMagenta.png";
         }
-        if (e.getSource() == red2) { // when red pressed
+        if (e.getSource() == red2) {
             player2Colour = "/com/pongProject/player/paddleRed.png";
         }
-        if (e.getSource() == orange2) { // when orange pressed
+        if (e.getSource() == orange2) {
             player2Colour = "/com/pongProject/player/paddleOrange.png";
         }
-    }
+    } // if specific button is pressed, executes contents of if statement
 }
