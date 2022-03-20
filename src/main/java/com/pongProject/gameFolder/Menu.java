@@ -13,6 +13,8 @@ import com.pongProject.logic.GamePanel;
 
 public class Menu implements ActionListener {
 
+    public String username;
+
     public PongDB db = new PongDB();
 
     public JFrame window = new JFrame();
@@ -129,7 +131,8 @@ public class Menu implements ActionListener {
         menuFrame.add(musicButton);
     } // adds the main menu buttons to main menu
 
-    public Menu() {
+    public Menu(String importedUsername) {
+        username = importedUsername;
         // allows button to do something when pressed
 
         pvcButton.addActionListener(this);
@@ -190,7 +193,7 @@ public class Menu implements ActionListener {
 
 
         // creating the menu frame
-        ImageIcon icon = new ImageIcon("pong_icon.png"); // create an ImageIcon
+        ImageIcon icon = new ImageIcon("pong_icon.png"); // this is the normal sized pong icon, normal sized as it is used as icon for JFrame
         menuFrame = new JFrame();
         menuFrame.setTitle("Pong");
         menuFrame.setSize(864, 672);

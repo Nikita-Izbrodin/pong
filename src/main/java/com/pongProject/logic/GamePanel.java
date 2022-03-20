@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+import com.pongProject.database.PongDB;
 import com.pongProject.entities.Ball;
 import com.pongProject.entities.Computer;
 import com.pongProject.entities.Player;
@@ -74,6 +75,10 @@ public class GamePanel extends JPanel implements Runnable  {
         stopMusic();
         gameThread = null;
         frame.dispose();
+
+        PongDB db = new PongDB();
+        db.updateHighScore(username, lastScore);
+        db.updateHighestRally(username, lastRally);
     }
 
     public void startGameThread() {

@@ -18,7 +18,7 @@ public class PongDB {
         return dbConnection.createStatement();
     }
 
-    private void executeUpdateSql(String sqlQuery) {
+    private boolean executeUpdateSql(String sqlQuery) {
         try {
             Statement stmt = getSqlStatement();
             stmt.executeUpdate(sqlQuery);
@@ -26,7 +26,10 @@ public class PongDB {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     private String getTopPlayers (int topCount, String dbColumnName){
@@ -51,12 +54,12 @@ public class PongDB {
         return topScores;
     } // either HighestScore OR HighestRally
 
-    public void createUser(String username, String password) {
+    public boolean createUser(String username, String password) {
 
         String passwordHashValue = HashGenerator.getHashValue(password);
 
         String sqlQuery = String.format("INSERT INTO Users VALUES ('%s', '%s', 0, 0)", username, passwordHashValue);
-        executeUpdateSql(sqlQuery);
+        return executeUpdateSql(sqlQuery);
     }
 
     public Boolean loginUser(String username, String password) {
