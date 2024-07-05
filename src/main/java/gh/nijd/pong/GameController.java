@@ -29,7 +29,6 @@ public class GameController {
     double ballxVelocity;
     double ballyVelocity;
     double xVelocityChange;
-    double yVelocityChange;
 
     boolean p1up = false, p1down = false, p2up = false, p2down = false, pause = false;
     private static Player p1, p2;
@@ -118,23 +117,23 @@ public class GameController {
         }
     }
 
-    private boolean isBallCollidingWithPlayer() {
+    private boolean isBallCollidingPlayer() {
         return (ball.getBoundsInParent().intersects(p1.r.getBoundsInParent())
                 ||
                 (ball.getBoundsInParent().intersects(p2.r.getBoundsInParent())));
     }
 
-    private boolean isBallCollidingWithTopOrBot() {
+    private boolean isBallCollidingTopOrBot() {
         double ballyCoord = ball.getCenterY() + gamePane.getHeight() / 2;
         return (ballyCoord - ball.getRadius() <= 0) || ((ballyCoord + ball.getRadius()) >= gamePane.getHeight());
     }
 
-    private boolean isBallCollidingWithSide() {
+    private boolean isBallCollidingSide() {
         double ballxCoord = ball.getCenterX() + gamePane.getWidth() / 2;
         return (ballxCoord - ball.getRadius() <= 0) || ((ballxCoord + ball.getRadius()) >= gamePane.getWidth());
     }
 
-    private void initialiseBall() {
+    private void initBall() {
         Random rand = new Random();
         int randInt = rand.nextInt(2);
         if (randInt == 0) { // ball will go left at start
@@ -158,7 +157,7 @@ public class GameController {
                 playerMovement(p1down, p1up, p1);
                 playerMovement(p2down, p2up, p2);
 
-                if (isBallCollidingWithPlayer()) {
+                if (isBallCollidingPlayer()) {
                     if (ballxVelocity < 0) {
                         ballxVelocity = (ballxVelocity - xVelocityChange) * -1;
                     } else if (ballxVelocity > 0) {
@@ -173,12 +172,12 @@ public class GameController {
                     }
                 }
 
-                if (isBallCollidingWithTopOrBot()) {
+                if (isBallCollidingTopOrBot()) {
                     ballyVelocity = ballyVelocity * -1;
                 }
 
-                if (isBallCollidingWithSide()) {
-                    initialiseBall();
+                if (isBallCollidingSide()) {
+                    initBall();
                 }
 
                 ball.setCenterX(ballx = ballx + ballxVelocity);
@@ -211,7 +210,7 @@ public class GameController {
         p1.initRectangle(gamePane);
         p2.initRectangle(gamePane);
 
-        initialiseBall();
+        initBall();
 
         gameLoop.start(); // Starts the gameloop for the first time
     }
