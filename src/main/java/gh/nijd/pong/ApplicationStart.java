@@ -24,6 +24,8 @@ public class ApplicationStart extends Application {
         stage.setScene(scene); // Adds the scene to the window
         stage.show();
 
+        /// new Console().playMusic("game.wav"); // TODO: play audio without pausing fxml
+
         p1 = new Player("Player One", "p1");
         p2 = new Player("Player Two", "p2");
     }
@@ -57,7 +59,6 @@ public class ApplicationStart extends Application {
         p2 = playerArr[1];
     }
     public static void main(String[] args) {
-        new Console().playMusic("game.wav");
         launch();
     }
 }

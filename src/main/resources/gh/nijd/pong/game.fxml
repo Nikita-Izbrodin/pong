@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="750.0" prefWidth="1500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gh.nijd.pong.GameController">
+<Pane fx:id="gamePane" maxHeight="750.0" maxWidth="1500.0" minHeight="750.0" minWidth="1500.0" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="750.0" prefWidth="1500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gh.nijd.pong.GameController">
    <children>
       <Line endX="750.0" endY="750.0" fill="WHITE" startX="750.0" stroke="#a0a1a0" />
       <Label fx:id="pOneScore" layoutX="760.0" layoutY="14.0" style="-fx-font-family: aldrich;" stylesheets="@stylesheets/fonts.css" text="0" textFill="#a0a1a0">
@@ -20,5 +21,6 @@
       </Label>
       <Line fx:id="leftEnd" endX="-100.0" endY="750.0" layoutX="101.0" startX="-100.0" stroke="RED" strokeWidth="5.0" />
       <Line fx:id="rightEnd" endX="100.0" layoutX="1399.0" startX="100.0" startY="750.0" stroke="RED" strokeWidth="5.0" />
+      <Circle fx:id="ball" fill="WHITE" layoutX="749.0" layoutY="375.0" radius="20.0" stroke="#979797" strokeType="INSIDE" strokeWidth="3.0" />
    </children>
 </Pane>

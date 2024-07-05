@@ -8,10 +8,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class GameController {
     @FXML
@@ -20,6 +22,14 @@ public class GameController {
     Label pOneScore, pTwoScore;
     @FXML
     Line leftEnd, rightEnd;
+    @FXML
+    Circle ball;
+    double ballx;
+    double bally;
+    double ballxVelocity;
+    double ballyVelocity;
+    double xVelocityChange;
+    double yVelocityChange;
 
     boolean p1up = false, p1down = false, p2up = false, p2down = false, pause = false;
     private static Player p1, p2;
@@ -108,7 +118,35 @@ public class GameController {
         }
     }
 
+    private boolean isBallCollidingWithPlayer() {
+        return (ball.getBoundsInParent().intersects(p1.r.getBoundsInParent())
+                ||
+                (ball.getBoundsInParent().intersects(p2.r.getBoundsInParent())));
+    }
 
+    private boolean isBallCollidingWithTopOrBot() {
+        double ballyCoord = ball.getCenterY() + gamePane.getHeight() / 2;
+        return (ballyCoord - ball.getRadius() <= 0) || ((ballyCoord + ball.getRadius()) >= gamePane.getHeight());
+    }
+
+    private boolean isBallCollidingWithSide() {
+        double ballxCoord = ball.getCenterX() + gamePane.getWidth() / 2;
+        return (ballxCoord - ball.getRadius() <= 0) || ((ballxCoord + ball.getRadius()) >= gamePane.getWidth());
+    }
+
+    private void initialiseBall() {
+        Random rand = new Random();
+        int randInt = rand.nextInt(2);
+        if (randInt == 0) { // ball will go left at start
+            ballxVelocity = -2;
+        } else { // ball will go right at start
+            ballxVelocity = 2;
+        }
+        ballyVelocity = 0;
+        xVelocityChange = 1;
+        ballx = 0;
+        bally = 0;
+    }
 
     public void initialize() {
         Alert gamePaused = gamePausedAlert(); // Creates alert to be used when the game is paused
@@ -119,6 +157,32 @@ public class GameController {
             public void handle(long l) {
                 playerMovement(p1down, p1up, p1);
                 playerMovement(p2down, p2up, p2);
+
+                if (isBallCollidingWithPlayer()) {
+                    if (ballxVelocity < 0) {
+                        ballxVelocity = (ballxVelocity - xVelocityChange) * -1;
+                    } else if (ballxVelocity > 0) {
+                        ballxVelocity = (ballxVelocity + xVelocityChange) * -1;
+                    }
+                    xVelocityChange = xVelocityChange * 0.88;
+                    Random rand = new Random();
+                    ballyVelocity = rand.nextInt(3) + 3;
+                    int randInt = rand.nextInt(2);
+                    if (randInt == 0) {
+                        ballyVelocity = ballyVelocity * -1;
+                    }
+                }
+
+                if (isBallCollidingWithTopOrBot()) {
+                    ballyVelocity = ballyVelocity * -1;
+                }
+
+                if (isBallCollidingWithSide()) {
+                    initialiseBall();
+                }
+
+                ball.setCenterX(ballx = ballx + ballxVelocity);
+                ball.setCenterY(bally = bally + ballyVelocity);
 
                 if (pause) {
                     stop(); // When escape is pressed the game loop stops
@@ -146,6 +210,8 @@ public class GameController {
         // Inits player rectangles
         p1.initRectangle(gamePane);
         p2.initRectangle(gamePane);
+
+        initialiseBall();
 
         gameLoop.start(); // Starts the gameloop for the first time
     }
