@@ -19,11 +19,13 @@ public class GameController {
     @FXML
     Pane gamePane;
     @FXML
-    Label pOneScore, pTwoScore;
-    @FXML
     Line leftEnd, rightEnd;
     @FXML
     Circle ball;
+    @FXML
+    Label p1Score;
+    @FXML
+    Label p2Score;
     double ballx;
     double bally;
     double ballxVelocity;
@@ -82,9 +84,8 @@ public class GameController {
 
     public Alert gamePausedAlert() {
         Alert gamePaused = new Alert(Alert.AlertType.CONFIRMATION);
-        gamePaused.setHeaderText("Game Paused");
         gamePaused.setTitle("Game Paused");
-        gamePaused.setContentText("");
+        gamePaused.setHeaderText("Game Paused");
         gamePaused.getButtonTypes().clear(); // Clears current buttons on alert
 
         // Creates new button options for the alert
@@ -94,6 +95,21 @@ public class GameController {
         // Adds button options to the alert
         gamePaused.getButtonTypes().addAll(quitButton, playButton);
         return gamePaused;
+    }
+
+    public Alert gameFinishedAlert(String winner) {
+        Alert gameFinished = new Alert(Alert.AlertType.CONFIRMATION);
+        gameFinished.setTitle("Game Finished");
+        gameFinished.setHeaderText(winner + " won!");
+        gameFinished.getButtonTypes().clear(); // Clears current buttons on alert
+
+        // Creates new button options for the alert
+        ButtonType quitButton = new ButtonType("Quit to main menu");
+        ButtonType playButton = new ButtonType("Replay");
+
+        // Adds button options to the alert
+        gameFinished.getButtonTypes().addAll(quitButton, playButton);
+        return gameFinished;
     }
 
     public void playerMovement(boolean keyOne, boolean keyTwo, Player currPlayer) {
@@ -177,6 +193,42 @@ public class GameController {
                 }
 
                 if (isBallCollidingSide()) {
+                    //TODO: update score
+                    double ballxCoord = ball.getCenterX() + gamePane.getWidth() / 2;
+                    if (ballxCoord - ball.getRadius() <= 0) {
+                        int score = Integer.valueOf(p2Score.getText());
+                        p2Score.setText(String.valueOf(score + 1));
+                    } else if ((ballxCoord + ball.getRadius()) >= gamePane.getWidth()) {
+                        int score = Integer.valueOf(p1Score.getText());
+                        p1Score.setText(String.valueOf(score + 1));
+                    }
+                    if (p1Score.getText().equals("1") || p2Score.getText().equals("1")) {
+                        stop();
+                        String winner = "";
+                        if (p1Score.getText().equals("1")) {
+                            winner = "Player 1";
+                        } else {
+                            winner = "Player 2";
+                        }
+                        Alert gameFinished = gameFinishedAlert(winner);
+                        final Optional<ButtonType>[] bt = new Optional[1];
+                        // Using Alert.showAndWait() causes a runtime error due to the current loop being performed,
+                        // so the action must be performed after the current loop is finished.
+                        Platform.runLater(() -> {
+                            bt[0] = gameFinished.showAndWait();
+                            if (bt[0].get().getText().equals("Quit to main menu")) { // If the player quits, they get taken to the menu page
+                                new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                            }
+                            else {
+                                p1Score.setText("0");
+                                p2Score.setText("0");
+                                initBall();
+                                start(); // If they want to continue, the game loop starts
+                                // initialize();
+                            }
+                            pause = p1up = p1down = p2up = p2down = false; // These bool vars need to be reset otherwise the player will move constantly until user input after the game restarts
+                        });
+                    }
                     initBall();
                 }
 
@@ -209,6 +261,9 @@ public class GameController {
         // Inits player rectangles
         p1.initRectangle(gamePane);
         p2.initRectangle(gamePane);
+
+        p1Score.setText("0");
+        p2Score.setText("0");
 
         initBall();
 
