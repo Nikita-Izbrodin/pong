@@ -13,10 +13,10 @@
          </font></Label>
        <Rectangle arcHeight="5.0" arcWidth="5.0" height="599.0" layoutX="20.0" layoutY="120.0" stroke="#a0a1a0" strokeType="INSIDE" width="1460.0" />
       <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
-      <ColorPicker fx:id="p1ColourBox" layoutX="205.0" layoutY="206.0" />
-      <ColorPicker fx:id="p2ColourBox" layoutX="1329.0" layoutY="206.0" />
-      <Spinner fx:id="p1SensBox" editable="true" layoutX="205.0" layoutY="260.0" />
-      <Spinner fx:id="p2SensBox" editable="true" layoutX="1304.0" layoutY="260.0" />
+      <ColorPicker fx:id="p1ColPick" layoutX="205.0" layoutY="206.0" />
+      <ColorPicker fx:id="p2ColPick" layoutX="1329.0" layoutY="206.0" />
+      <Spinner fx:id="p1SensSpin" editable="true" layoutX="205.0" layoutY="260.0" />
+      <Spinner fx:id="p2SensSpin" editable="true" layoutX="1304.0" layoutY="260.0" />
       <Button layoutX="162.0" layoutY="634.0" mnemonicParsing="false" onAction="#p1SaveSettings" text="Player 1 Save" />
       <Label layoutX="44.0" layoutY="141.0" style="-fx-font-family: aldrich;" text="Player 1:" textFill="#a0a1a0">
          <font>

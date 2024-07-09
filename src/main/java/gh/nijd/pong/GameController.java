@@ -8,8 +8,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -26,6 +28,10 @@ public class GameController {
     Label p1Score;
     @FXML
     Label p2Score;
+    @FXML
+    Rectangle p1;
+    @FXML
+    Rectangle p2;
     double ballx;
     double bally;
     double ballxVelocity;
@@ -33,7 +39,8 @@ public class GameController {
     double xVelocityChange;
 
     boolean p1up = false, p1down = false, p2up = false, p2down = false, pause = false;
-    private static Player p1, p2;
+
+    int p1Sens, p2Sens;
 
     @FXML
     public void keyPressed(KeyEvent keyEvent) {
@@ -77,9 +84,14 @@ public class GameController {
         }
     }
 
-    public void getPlayers(Player[] playerArr) {
-        p1 = playerArr[0];
-        p2 = playerArr[1];
+    public void setSens(int p1Sens, int p2Sens) {
+        this.p1Sens = p1Sens;
+        this.p2Sens = p2Sens;
+    }
+
+    public void setColor(Color p1Col, Color p2Col) {
+        p1.setFill(p1Col); // TODO: fix
+        p2.setFill(p2Col);
     }
 
     public Alert gamePausedAlert() {
@@ -112,31 +124,29 @@ public class GameController {
         return gameFinished;
     }
 
-    public void playerMovement(boolean keyOne, boolean keyTwo, Player currPlayer) {
+    public void playerMovement(boolean keyOne, boolean keyTwo, Rectangle p, int sens) {
         if (keyOne) {
-            if (currPlayer.yPos > currPlayer.windowHeight - currPlayer.rHeight - currPlayer.sensitivity) { // If the player's sensitivity will take them below the screen it will set the player to the lowest they can go, no matter their sensitivity they will always end at the same yPos
-                currPlayer.r.setY(currPlayer.windowHeight - currPlayer.rHeight);
+            if (p.getY() + p.getHeight() / 2 + sens > gamePane.getHeight() / 2) { // If the player's sensitivity will take them below the screen it will set the player to the lowest they can go, no matter their sensitivity they will always end at the same yPos
+                p.setY(gamePane.getHeight() / 2 - p.getHeight() / 2);
             }
             else{ // Moves the player down by their sensitivity
-                currPlayer.yPos += currPlayer.sensitivity;
-                currPlayer.r.setY(currPlayer.yPos);
+                p.setY(p.getY() + sens);
             }
         }
         if (keyTwo) {
-            if (currPlayer.yPos < currPlayer.sensitivity) { // Same as above, except for going up
-                currPlayer.r.setY(0);
+            if (p.getY() - p.getHeight() / 2 - sens < (gamePane.getHeight() / 2) * -1) { // Same as above, except for going up
+                p.setY((gamePane.getHeight() / 2) * -1 + p.getHeight() / 2);
             }
             else {
-                currPlayer.yPos -= currPlayer.sensitivity;
-                currPlayer.r.setY(currPlayer.yPos);
+                p.setY(p.getY() - sens);
             }
         }
     }
 
     private boolean isBallCollidingPlayer() {
-        return (ball.getBoundsInParent().intersects(p1.r.getBoundsInParent())
+        return (ball.getBoundsInParent().intersects(p1.getBoundsInParent())
                 ||
-                (ball.getBoundsInParent().intersects(p2.r.getBoundsInParent())));
+                (ball.getBoundsInParent().intersects(p2.getBoundsInParent())));
     }
 
     private boolean isBallCollidingTopOrBot() {
@@ -170,8 +180,8 @@ public class GameController {
         AnimationTimer gameLoop = new AnimationTimer() { // Creates the game loop
             @Override
             public void handle(long l) {
-                playerMovement(p1down, p1up, p1);
-                playerMovement(p2down, p2up, p2);
+                playerMovement(p1down, p1up, p1, p1Sens);
+                playerMovement(p2down, p2up, p2, p2Sens);
 
                 if (isBallCollidingPlayer()) {
                     if (ballxVelocity < 0) {
@@ -202,10 +212,10 @@ public class GameController {
                         int score = Integer.valueOf(p1Score.getText());
                         p1Score.setText(String.valueOf(score + 1));
                     }
-                    if (p1Score.getText().equals("1") || p2Score.getText().equals("1")) {
+                    if (p1Score.getText().equals("11") || p2Score.getText().equals("11")) {
                         stop();
                         String winner = "";
-                        if (p1Score.getText().equals("1")) {
+                        if (p1Score.getText().equals("11")) {
                             winner = "Player 1";
                         } else {
                             winner = "Player 2";
@@ -223,8 +233,10 @@ public class GameController {
                                 p1Score.setText("0");
                                 p2Score.setText("0");
                                 initBall();
+                                p1.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
+                                p2.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
                                 start(); // If they want to continue, the game loop starts
-                                // initialize();
+                                //TODO: possible to make use of initialise
                             }
                             pause = p1up = p1down = p2up = p2down = false; // These bool vars need to be reset otherwise the player will move constantly until user input after the game restarts
                         });
@@ -257,13 +269,6 @@ public class GameController {
 
             }
         };
-
-        // Inits player rectangles
-        p1.initRectangle(gamePane);
-        p2.initRectangle(gamePane);
-
-        p1Score.setText("0");
-        p2Score.setText("0");
 
         initBall();
 

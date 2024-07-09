@@ -6,18 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ApplicationStart extends Application {
 
-    private static Player p1, p2; // Creates Player objects
+    int p1Sens = 10;
+    int p2Sens = 10;
+    Color p1Col = Color.WHITE;
+    Color p2Col = Color.WHITE;
+
+    private Scene scene;
+    private Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ApplicationStart.class.getResource("menu.fxml")); // Gets the FXML file
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 750); // Loads FXML file as a scene
+        this.stage = stage;
+        FXMLLoader loader = new FXMLLoader(ApplicationStart.class.getResource("menu.fxml")); // Gets the FXML file
+        Scene scene = new Scene(loader.load(), 1500, 750); // Loads FXML file as a scene
         stage.setResizable(false); // Prevents player from changing window size
         stage.setTitle("Pong Game"); // Sets the window title
         stage.getIcons().add(new Image((getClass().getResourceAsStream("images/pong.png")))); // Adds the application icon to the window
@@ -25,39 +33,43 @@ public class ApplicationStart extends Application {
         stage.show();
 
         /// new Console().playMusic("game.wav"); // TODO: play audio without pausing fxml
-
-        p1 = new Player("Player One", "p1");
-        p2 = new Player("Player Two", "p2");
     }
 
     public void exitGame(ActionEvent event) {
         System.exit(0); // Exits the program
     }
 
-    public void startGame(ActionEvent event) {
-        p1.windowHeight = ((Node) event.getSource()).getScene().getHeight();
-        p1.windowWidth = ((Node) event.getSource()).getScene().getWidth();
-        p2.windowHeight = ((Node) event.getSource()).getScene().getHeight();
-        p2.windowWidth = ((Node) event.getSource()).getScene().getWidth();
+    public void startGame(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml")); // TODO: make use of console class
+        stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(loader.load());
+        scene.getRoot().requestFocus();
+        stage.setScene(scene);
+        stage.show();
 
-        Player[] playerArr = {p1, p2}; // Allows for both Player objects to be transferred to the next controller by creating an instance of the controller and sending the data to the receiving method
-        GameController GC = new GameController();
-        GC.getPlayers(playerArr);
-
-        new Console().selectNewScene("game.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());
+        //new Console().selectNewScene("game.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());
+        GameController gameController = loader.getController();
+        gameController.setSens(p1Sens, p2Sens);
+        gameController.setColor(p1Col, p2Col);
     }
 
     public void settings(ActionEvent event) {
-        Player[] playerArr = {p1, p2};
         SettingsController SC = new SettingsController();
-        SC.getPlayers(playerArr);
-
+        SC.setSens(p1Sens, p2Sens);
+        SC.setColor(p1Col, p2Col);
         new Console().selectNewScene("settings.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());
     }
-    public void getPlayers(Player[] playerArr) { // Receives player data when stage switched
-        p1 = playerArr[0];
-        p2 = playerArr[1];
+
+    public void setSens(int p1Sens, int p2Sens) {
+        this.p1Sens = p1Sens;
+        this.p2Sens = p2Sens;
     }
+
+    public void setColor(Color p1Col, Color p2Col) {
+        this.p1Col = p1Col;
+        this.p2Col = p2Col;
+    }
+
     public static void main(String[] args) {
         launch();
     }

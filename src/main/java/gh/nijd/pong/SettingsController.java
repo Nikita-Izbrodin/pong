@@ -15,24 +15,24 @@ public class SettingsController {
     @FXML
     private Pane settingsPane;
     @FXML
-    private ColorPicker p1ColourBox, p2ColourBox;
+    private ColorPicker p1ColPick, p2ColPick;
     @FXML
-    private Spinner<Integer> p1SensBox, p2SensBox;
+    private Spinner<Integer> p1SensSpin, p2SensSpin;
     @FXML
     private CheckBox fullscreenOption;
 
-    private static Player p1, p2;
-
+    int p1Sens, p2Sens;
+    Color p1Col, p2Col;
 
     public void p1SaveSettings(ActionEvent event) {
-        p1.fillColour = p1ColourBox.getValue(); // Gets values of player settings
-        p1.sensitivity = p1SensBox.getValue();
+        p1Col = p1ColPick.getValue(); // Gets values of player settings
+        p1Sens = p1SensSpin.getValue();
         createSavedPU("Player 1");
     }
 
     public void p2SaveSettings(ActionEvent event) {
-        p2.fillColour = p2ColourBox.getValue();
-        p2.sensitivity = p2SensBox.getValue();
+        p2Col = p2ColPick.getValue();
+        p2Sens = p2SensSpin.getValue();
         createSavedPU("Player 2");
     }
 
@@ -53,27 +53,34 @@ public class SettingsController {
     }
 
     public void backToMenu(ActionEvent event) {
-        Player[] playerArr = {p1, p2};
+        //Player[] playerArr = {p1, p2};
 
         ApplicationStart AS = new ApplicationStart();
-        AS.getPlayers(playerArr);
+        //AS.getPlayers(playerArr);
+        AS.setSens(p1Sens, p2Sens);
+        AS.setColor(p1Col, p2Col);
         new Console().selectNewScene("menu.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());
     }
 
-    public void getPlayers(Player[] playerArr) {
-        p1 = playerArr[0];
-        p2 = playerArr[1];
+    public void setSens(int p1Sens, int p2Sens) {
+        this.p1Sens = p1Sens;
+        this.p2Sens = p2Sens;
+    }
+
+    public void setColor(Color p1Col, Color p2Col) {
+        this.p1Col = p1Col;
+        this.p2Col = p2Col;
     }
 
     public void initialize() {
         // Inits the spinners for sensitivity
-        SpinnerValueFactory<Integer> p1SPFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,50, p1.sensitivity);
-        SpinnerValueFactory<Integer> p2SPFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,50, p2.sensitivity);
-        p1SensBox.setValueFactory(p1SPFactory);
-        p2SensBox.setValueFactory(p2SPFactory);
+        SpinnerValueFactory<Integer> p1SPFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,50, p1Sens);
+        SpinnerValueFactory<Integer> p2SPFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,50, p2Sens);
+        p1SensSpin.setValueFactory(p1SPFactory);
+        p2SensSpin.setValueFactory(p2SPFactory);
 
         // Inits the colour pickers
-        p1ColourBox.setValue(p1.fillColour);
-        p2ColourBox.setValue(p2.fillColour);
+        p1ColPick.setValue(p1Col);
+        p2ColPick.setValue(p2Col);
     }
 }
