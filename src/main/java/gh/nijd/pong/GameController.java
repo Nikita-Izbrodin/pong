@@ -3,6 +3,9 @@ package gh.nijd.pong;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -14,6 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -37,6 +41,9 @@ public class GameController {
     double ballxVelocity;
     double ballyVelocity;
     double xVelocityChange;
+
+    private Scene scene;
+    private Stage stage;
 
     boolean p1up = false, p1down = false, p2up = false, p2down = false, pause = false;
 
@@ -90,7 +97,7 @@ public class GameController {
     }
 
     public void setColor(Color p1Col, Color p2Col) {
-        p1.setFill(p1Col); // TODO: fix
+        p1.setFill(p1Col);
         p2.setFill(p2Col);
     }
 
@@ -227,7 +234,23 @@ public class GameController {
                         Platform.runLater(() -> {
                             bt[0] = gameFinished.showAndWait();
                             if (bt[0].get().getText().equals("Quit to main menu")) { // If the player quits, they get taken to the menu page
-                                new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                                //new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                                //new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml")); // TODO: make use of console class
+                                //stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                                stage = (Stage) gamePane.getScene().getWindow();
+                                try {
+                                    scene = new Scene(loader.load());
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                scene.getRoot().requestFocus();
+                                stage.setScene(scene);
+                                stage.show();
+
+                                ApplicationStart applicationStart = loader.getController();
+                                applicationStart.setSens(p1Sens, p2Sens);
+                                applicationStart.setColor((Color) p1.getFill(), (Color) p2.getFill());
                             }
                             else {
                                 p1Score.setText("0");
@@ -255,7 +278,22 @@ public class GameController {
                         public void run() {
                             bt[0] = gamePaused.showAndWait();
                             if (bt[0].get().getText().equals("Quit")) { // If the player quits, they get taken to the menu page
-                                new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                                //new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml")); // TODO: make use of console class
+                                //stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                                stage = (Stage) gamePane.getScene().getWindow();
+                                try {
+                                    scene = new Scene(loader.load());
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                scene.getRoot().requestFocus();
+                                stage.setScene(scene);
+                                stage.show();
+
+                                ApplicationStart applicationStart = loader.getController();
+                                applicationStart.setSens(p1Sens, p2Sens);
+                                applicationStart.setColor((Color) p1.getFill(), (Color) p2.getFill());
                             }
                             else {
                                 start(); // If they want to continue, the game loop starts

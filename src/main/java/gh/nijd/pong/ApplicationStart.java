@@ -53,11 +53,21 @@ public class ApplicationStart extends Application {
         gameController.setColor(p1Col, p2Col);
     }
 
-    public void settings(ActionEvent event) {
-        SettingsController SC = new SettingsController();
+    public void settings(ActionEvent event) throws IOException { //TODO: make settings functional
+        /*SettingsController SC = new SettingsController();
         SC.setSens(p1Sens, p2Sens);
         SC.setColor(p1Col, p2Col);
-        new Console().selectNewScene("settings.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());
+        new Console().selectNewScene("settings.fxml", (Stage)((Node) event.getSource()).getScene().getWindow(), ((Stage)((Node) event.getSource()).getScene().getWindow()).isFullScreen());*/
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml")); // TODO: make use of console class
+        stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(loader.load());
+        scene.getRoot().requestFocus();
+        stage.setScene(scene);
+        stage.show();
+
+        SettingsController settingsController = loader.getController();
+        settingsController.setSens(p1Sens, p2Sens);
+        settingsController.setColor(p1Col, p2Col);
     }
 
     public void setSens(int p1Sens, int p2Sens) {
