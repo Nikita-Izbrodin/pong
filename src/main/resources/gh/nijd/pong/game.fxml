@@ -20,8 +20,8 @@
             <Font name="System Bold" size="39.0" />
          </font>
       </Label>
-      <Line fx:id="leftEnd" endX="-100.0" endY="750.0" layoutX="101.0" startX="-100.0" stroke="RED" strokeWidth="5.0" />
-      <Line fx:id="rightEnd" endX="100.0" layoutX="1399.0" startX="100.0" startY="750.0" stroke="RED" strokeWidth="5.0" />
+      <Line endX="-100.0" endY="750.0" layoutX="101.0" startX="-100.0" stroke="RED" strokeWidth="5.0" />
+      <Line endX="100.0" layoutX="1399.0" startX="100.0" startY="750.0" stroke="RED" strokeWidth="5.0" />
       <Circle fx:id="ball" fill="WHITE" layoutX="749.0" layoutY="375.0" radius="20.0" stroke="#979797" strokeType="INSIDE" strokeWidth="3.0" />
       <Rectangle fx:id="p1" arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="150.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
       <Rectangle fx:id="p2" arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="150.0" layoutX="1480.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
