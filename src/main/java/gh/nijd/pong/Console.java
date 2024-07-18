@@ -1,29 +1,29 @@
 package gh.nijd.pong;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.Line;
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
 
 public class Console {
-    private Scene newScene;
-    private Parent root;
 
-    public void selectNewScene(String fileName, Stage stage, boolean fullscreen) {
-        try {
-            root = FXMLLoader.load(getClass().getResource(fileName)); // Gets the new FXML scene
-            newScene = new Scene(root); // Makes the FXML into a scene
-            newScene.getRoot().requestFocus(); // Requests focus so the container can send updates and get focus
-            stage.setScene(newScene); // Sets the new scene
-            stage.setFullScreen(fullscreen); // Sets the screen to the selected screen size
-            stage.show(); // Displays the new scene
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public FXMLLoader loadScene(String fileName, Stage stage, boolean fullscreen) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
+        Scene scene = new Scene(loader.load());
+        scene.getRoot().requestFocus();
+        stage.setScene(scene);
+        stage.setFullScreen(fullscreen);
+        stage.show();
+        return loader;
     }
 
     public void playMusic(String audioName) { // https://www.baeldung.com/java-play-sound
