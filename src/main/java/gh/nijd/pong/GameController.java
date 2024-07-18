@@ -41,7 +41,7 @@ public class GameController {
     private Scene scene;
     private Stage stage;
 
-    boolean p1up = false, p1down = false, p2up = false, p2down = false, pause = false;
+    boolean p1up = false, p1down = false, p2up = false, p2down = false, isPaused = false;
 
     int p1Sens, p2Sens;
     boolean fullscreen;
@@ -56,146 +56,156 @@ public class GameController {
                 playerMovement(p2down, p2up, p2, p2Sens);
 
                 if (isBallCollidingPlayer()) {
-                    if (ballxVelocity < 0) {
-                        ballxVelocity = (ballxVelocity - xVelocityChange) * -1;
-                    } else if (ballxVelocity > 0) {
-                        ballxVelocity = (ballxVelocity + xVelocityChange) * -1;
-                    }
-                    xVelocityChange = xVelocityChange * 0.88;
-                    Random rand = new Random();
-                    if (ballyVelocity > 0) {
-                        ballyVelocity = (rand.nextInt(3) + 3);
-                    } else if (ballyVelocity < 0){
-                        ballyVelocity = (rand.nextInt(3) + 3) * -1;
-                    } else {
-                        int randInt = rand.nextInt(2);
-                        if (randInt == 0) {
-                            ballyVelocity = (rand.nextInt(3) + 3);
-                        } else {
-                            ballyVelocity = (rand.nextInt(3) + 3) * -1;
-                        }
-                    }
+                    ballCollidingPlayer();
                 }
 
                 if (isBallCollidingTopOrBot()) {
-                    ballyVelocity = ballyVelocity * -1;
+                    ballCollidingTopOrBot();
                 }
 
                 if (isBallCollidingSide()) {
-                    updateScore();
-                    initBall();
+                    ballCollidingSide();
                 }
 
                 ball.setCenterX(ballx = ballx + ballxVelocity);
                 ball.setCenterY(bally = bally + ballyVelocity);
 
-                if (pause) {
-                    stop();
-                    Platform.runLater(new Runnable() {
-                        // Using Alert.showAndWait() causes a runtime error due to the current loop being performed,
-                        // so the action must be performed after the current loop is finished.
-                        @Override
-                        public void run() {
-                            final Optional<ButtonType>[] bt = new Optional[1]; // Inits arr to store result from alert
-                            bt[0] = createAlert(
-                                    "Game Paused",
-                                    "Game Paused",
-                                    "Quit",
-                                    "Continue"
-                            ).showAndWait();
-                            if (bt[0].get().getText().equals("Quit")) {
-                                Stage stage = (Stage) gamePane.getScene().getWindow();
-                                FXMLLoader loader;
-                                try {
-                                    loader = new Console().loadScene("menu.fxml", stage, fullscreen);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Main main = loader.getController();
-                                main.setValues(p1Sens, p2Sens, (Color) p1.getFill(), (Color) p2.getFill());
-                            }
-                            else {
-                                start();
-                            }
-                            pause = p1up = p1down = p2up = p2down = false;
-                            // These bool vars need to be reset otherwise the player will
-                            // move constantly until user input after the game restarts.
-                        }
-                    });
+                if (isPaused) {
+                    pause();
                 }
 
-                // In-game music
-
+                //TODO: add in-game music + sound effects
             }
 
-            private void updateScore() { //TODO: clean method
+            // nested because method needs call updateScore which controls gameLoop
+            private void ballCollidingSide() {
+                updateScore();
+                initBall();
+            }
+
+            // nested because method needs to control gameLoop
+            private void updateScore() {
                 double ballxCoord = ball.getCenterX() + gamePane.getWidth() / 2;
                 if (ballxCoord - ball.getRadius() <= 0) {
-                    int score = Integer.valueOf(p2Score.getText());
+                    int score = Integer.parseInt(p2Score.getText());
                     p2Score.setText(String.valueOf(score + 1));
                 } else if ((ballxCoord + ball.getRadius()) >= gamePane.getWidth()) {
-                    int score = Integer.valueOf(p1Score.getText());
+                    int score = Integer.parseInt(p1Score.getText());
                     p1Score.setText(String.valueOf(score + 1));
                 }
                 if (p1Score.getText().equals("11") || p2Score.getText().equals("11")) {
-                    stop();
-                    String winner = "";
-                    if (p1Score.getText().equals("11")) {
-                        winner = "Player 1";
-                    } else {
-                        winner = "Player 2";
-                    }
-                    Alert gameFinished = createAlert(
-                            "Game Finished",
-                            winner + " won!",
-                            "Quit to main menu",
-                            "Replay"
-                    );
-                    final Optional<ButtonType>[] bt = new Optional[1];
+                    gameFinished();
+                }
+            }
+
+            // nested because method needs to control gameLoop
+            private void pause() {
+                stop();
+                Platform.runLater(new Runnable() {
                     // Using Alert.showAndWait() causes a runtime error due to the current loop being performed,
                     // so the action must be performed after the current loop is finished.
-                    Platform.runLater(() -> {
-                        bt[0] = gameFinished.showAndWait();
-                        if (bt[0].get().getText().equals("Quit to main menu")) { // If the player quits, they get taken to the menu page
-                            //new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
-                            //new Console().selectNewScene("menu.fxml", (Stage) gamePane.getScene().getWindow(), ((Stage) gamePane.getScene().getWindow()).isFullScreen());
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml")); // TODO: make use of console class
-                            //stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-                            stage = (Stage) gamePane.getScene().getWindow();
-
+                    @Override
+                    public void run() {
+                        final Optional<ButtonType>[] bt = new Optional[1]; // Inits arr to store result from alert
+                        bt[0] = createAlert(
+                                "Game Paused",
+                                "Game Paused",
+                                "Quit",
+                                "Continue"
+                        ).showAndWait();
+                        if (bt[0].get().getText().equals("Quit")) {
+                            Stage stage = (Stage) gamePane.getScene().getWindow();
+                            FXMLLoader loader;
                             try {
-                                scene = new Scene(loader.load());
+                                loader = new Console().loadScene("menu.fxml", stage, fullscreen);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            scene.getRoot().requestFocus();
-                            stage.setScene(scene);
-                            stage.show();
-
-                            SettingsController settingsController = loader.getController();
-                            settingsController.setValues(p1Sens, p2Sens, (Color) p1.getFill(), (Color) p2.getFill());
-
-                            /*Main main = loader.getController();
-                            main.setValues(p1Sens, p2Sens,(Color) p1.getFill(), (Color) p2.getFill());*/
+                            Main main = loader.getController();
+                            main.setValues(p1Sens, p2Sens, (Color) p1.getFill(), (Color) p2.getFill());
                         }
                         else {
-                            p1Score.setText("0");
-                            p2Score.setText("0");
-                            initBall();
-                            p1.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
-                            p2.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
-                            start(); // If they want to continue, the game loop starts
-                            //TODO: possible to make use of initialise
+                            start();
                         }
-                        pause = p1up = p1down = p2up = p2down = false; // These bool vars need to be reset otherwise the player will move constantly until user input after the game restarts
-                    });
+                        isPaused = p1up = p1down = p2up = p2down = false;
+                        // These bool vars need to be reset otherwise the player will
+                        // move constantly until user input after the game restarts.
+                    }
+                });
+            }
+
+            // nested because method needs to control gameLoop
+            private void gameFinished() {
+                stop();
+                String winner;
+                if (p1Score.getText().equals("11")) {
+                    winner = "Player 1";
+                } else {
+                    winner = "Player 2";
                 }
+                Alert alert = createAlert(
+                        "Game Finished",
+                        winner + " won!",
+                        "Quit to main menu",
+                        "Replay"
+                );
+                final Optional<ButtonType>[] bt = new Optional[1];
+                // Using Alert.showAndWait() causes a runtime error due to the current loop being performed,
+                // so the action must be performed after the current loop is finished.
+                Platform.runLater(() -> {
+                    bt[0] = alert.showAndWait();
+                    if (bt[0].get().getText().equals("Quit to main menu")) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml")); // TODO: make use of console class
+                        stage = (Stage) gamePane.getScene().getWindow();
+                        try {
+                            scene = new Scene(loader.load());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        scene.getRoot().requestFocus();
+                        stage.setScene(scene);
+                        stage.show();
+
+                        SettingsController settingsController = loader.getController();
+                        settingsController.setValues(p1Sens, p2Sens, (Color) p1.getFill(), (Color) p2.getFill());
+                    }
+                    else {
+                        initPlayers();
+                        initBall();
+                        start();
+                    }
+                    isPaused = p1up = p1down = p2up = p2down = false;
+                    // These bool vars need to be reset otherwise the player will move constantly
+                    // until user input after the game restarts.
+                });
             }
         };
 
+        initPlayers();
         initBall();
 
         gameLoop.start(); // Starts the gameloop for the first time
+    }
+
+    private void initPlayers() {
+        p1Score.setText("0");
+        p2Score.setText("0");
+        p1.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
+        p2.setY((gamePane.getHeight() / 2) - (gamePane.getHeight() / 2));
+    }
+
+    private void initBall() {
+        Random rand = new Random();
+        int randInt = rand.nextInt(2);
+        if (randInt == 0) { // ball will go left at start
+            ballxVelocity = -2;
+        } else { // ball will go right at start
+            ballxVelocity = 2;
+        }
+        ballyVelocity = 0;
+        xVelocityChange = 1;
+        ballx = 0;
+        bally = 0;
     }
 
     @FXML
@@ -214,7 +224,7 @@ public class GameController {
                 p2up = true;
                 break;
             case P:
-                pause = true;
+                isPaused = true;
                 break;
         }
     }
@@ -235,7 +245,7 @@ public class GameController {
                 p2up = false;
                 break;
             case P:
-                pause = false;
+                isPaused = false;
                 break;
         }
     }
@@ -268,6 +278,32 @@ public class GameController {
                 (ball.getBoundsInParent().intersects(p2.getBoundsInParent())));
     }
 
+    private void ballCollidingPlayer() {
+        if (ballxVelocity < 0) {
+            ballxVelocity = (ballxVelocity - xVelocityChange) * -1;
+        } else if (ballxVelocity > 0) {
+            ballxVelocity = (ballxVelocity + xVelocityChange) * -1;
+        }
+        xVelocityChange = xVelocityChange * 0.88;
+        Random rand = new Random();
+        if (ballyVelocity > 0) {
+            ballyVelocity = (rand.nextInt(3) + 3);
+        } else if (ballyVelocity < 0){
+            ballyVelocity = (rand.nextInt(3) + 3) * -1;
+        } else {
+            int randInt = rand.nextInt(2);
+            if (randInt == 0) {
+                ballyVelocity = (rand.nextInt(3) + 3);
+            } else {
+                ballyVelocity = (rand.nextInt(3) + 3) * -1;
+            }
+        }
+    }
+
+    private void ballCollidingTopOrBot() {
+        ballyVelocity = ballyVelocity * -1;
+    }
+
     private boolean isBallCollidingTopOrBot() {
         double ballyCoord = ball.getCenterY() + gamePane.getHeight() / 2;
         return (ballyCoord - ball.getRadius() <= 0) || ((ballyCoord + ball.getRadius()) >= gamePane.getHeight());
@@ -276,20 +312,6 @@ public class GameController {
     private boolean isBallCollidingSide() {
         double ballxCoord = ball.getCenterX() + gamePane.getWidth() / 2;
         return (ballxCoord - ball.getRadius() <= 0) || ((ballxCoord + ball.getRadius()) >= gamePane.getWidth());
-    }
-
-    private void initBall() {
-        Random rand = new Random();
-        int randInt = rand.nextInt(2);
-        if (randInt == 0) { // ball will go left at start
-            ballxVelocity = -2;
-        } else { // ball will go right at start
-            ballxVelocity = 2;
-        }
-        ballyVelocity = 0;
-        xVelocityChange = 1;
-        ballx = 0;
-        bally = 0;
     }
 
     public Alert createAlert(String title, String header, String button1Text, String button2Text) {

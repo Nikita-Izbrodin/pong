@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -18,6 +19,7 @@ public class Main extends Application {
     Color p2Col = Color.WHITE;
     boolean fullscreen = false;
 
+    //TODO: Separate controller of menu.fxml from Main
     public static void main(String[] args) {
         launch(); // calls start method
     }
@@ -26,9 +28,11 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         stage.setResizable(false);
         stage.setTitle("Pong Game");
-        stage.getIcons().add(new Image((getClass().getResourceAsStream("images/pong.png"))));
+        stage.getIcons().add(new Image((
+                Objects.requireNonNull(getClass().getResourceAsStream("images/pong.png"))
+        )));
         new Console().loadScene("menu.fxml", stage, fullscreen);
-        /// new Console().playMusic("game.wav"); // TODO: play audio without pausing fxml
+        /// new Console().playMusic("game.wav"); // TODO: play audio without pausing application
     }
 
     public void startGame(ActionEvent event) throws IOException {
@@ -45,7 +49,7 @@ public class Main extends Application {
         settingsController.setValues(p1Sens, p2Sens, p1Col, p2Col);
     }
 
-    public void exitGame(ActionEvent event) {
+    public void exitGame() {
         System.exit(0);
     }
 
